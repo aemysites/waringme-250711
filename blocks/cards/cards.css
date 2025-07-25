@@ -25,3 +25,176 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+.cards.cards32 {
+  background: #f4f4f4;
+  padding: 40px 0;
+}
+
+/* Tighter, even cards: grid gap, force equal row heights */
+.cards.cards32 > ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card: force fill of row, max and min height for balance */
+.cards.cards32 > ul > li {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 30px 0 rgb(0 0 0 / 9%);
+  border: none;
+  min-height: 332px;
+  max-height: 370px;
+  height: 100%;
+  transition: box-shadow 0.15s;
+  overflow: hidden;
+}
+
+/* Image section: share height, balanced width, cannot shrink below 0 */
+.cards.cards32 .cards-card-image {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 50%;
+  border-radius: 22px 0 0 22px;
+  overflow: hidden;
+  background: #e5e5e5;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cards.cards32 .cards-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text section: match height, less top/side padding, packed to top */
+.cards.cards32 .cards-card-body {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 16px 22px 10px 20px;
+  background: #fff;
+  margin: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Badge row: side-by-side, flush with top, no vertical gap */
+.cards.cards32 .cards-card-body > p:nth-child(1),
+.cards.cards32 .cards-card-body > p:nth-child(2) {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1;
+  position: relative;
+  top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  float: left;
+}
+
+.cards.cards32 .cards-card-body > p:nth-child(1) {
+  background: #ededed;
+  color: #707070;
+  font-size: 0.80em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 13px;
+  border-radius: 13px;
+  text-transform: uppercase;
+  margin-right: 9px;
+}
+
+.cards.cards32 .cards-card-body > p:nth-child(2) {
+  color: #8c8c8c;
+  font-size: 0.80em;
+}
+
+/* Headline: minimal margin above, tight to badges */
+.cards.cards32 .cards-card-body > h3 {
+  clear: both;
+  margin-top: 8px;
+}
+
+/* Headline: tight line height */
+.cards.cards32 .cards-card-body h3 {
+  margin: 8px 0 5px;
+  font-family: var(--heading-font-family), Arial, sans-serif;
+  font-size: 1.08em;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  overflow-wrap: break-word;
+}
+
+/* Description: very close below headline, no extra space */
+.cards.cards32 .cards-card-body p:nth-child(4) {
+  color: #444;
+  font-size: 0.93em;
+  margin-bottom: 1px;
+  margin-top: 0;
+}
+
+/* "Read" link: almost touching description */
+.cards.cards32 .cards-card-body p:last-child {
+  color: #1967d2;
+  font-size: 0.89em;
+  font-weight: 500;
+  text-decoration: underline;
+  margin-top: 1px;
+  margin-bottom: 0;
+  cursor: pointer;
+  width: fit-content;
+  line-height: 1.08;
+}
+
+/* Remove vertical gaps between all text elements */
+.cards.cards32 .cards-card-body > *:not(:last-child) {
+  margin-bottom: 0.15em;
+}
+
+/* Responsiveness: single column, adapt paddings */
+@media (width <= 900px) {
+  .cards.cards32 > ul {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .cards.cards32 > ul > li {
+    flex-direction: column;
+    min-height: 0;
+    height: auto;
+    border-radius: 22px;
+    max-height: none;
+  }
+
+  .cards.cards32 .cards-card-image {
+    border-radius: 22px 22px 0 0;
+    max-width: 100%;
+    min-width: 0;
+    aspect-ratio: 2 / 1;
+    height: 160px;
+  }
+
+  .cards.cards32 .cards-card-body {
+    padding: 13px 4vw 8px;
+  }
+}
