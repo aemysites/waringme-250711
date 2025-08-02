@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -117,7 +119,6 @@
   text-align: center;
   margin: 0;
   background: linear-gradient(90deg, #fd6600 0%, #ea2180 32%, #c800d3 62%, #0072ce 100%);
-  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
@@ -129,7 +130,7 @@
   padding-bottom: 0;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .hero.hero20 {
     padding: 14px 0 0;
   }
@@ -145,5 +146,90 @@
     white-space: normal;
     line-height: 1.18;
     word-wrap: break-word;
+  }
+}
+
+.hero.hero21 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  padding: 36px 0 32px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hero.hero21 > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero.hero21 > div:first-child {
+  margin-bottom: 6px;
+}
+
+.hero.hero21 picture,
+.hero.hero21 > div > div > picture {
+  display: block;
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.hero.hero21 img {
+  display: block;
+  max-width: 152px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, #85bbff 0%, #e2a8ff 100%) 1;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
+.hero.hero21 h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(90deg, #f60 0%, #ff2d55 23%, #e12aae 49%, #c800ff 66%, #0072ff 100%);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.01em;
+  line-height: 1.07;
+  max-width: 100vw;
+  white-space: normal;
+  overflow-wrap: break-word;
+  margin-top: 4px;
+}
+
+@media (width <= 600px) {
+  .hero.hero21 {
+    padding: 10px 0 14px;
+  }
+
+  .hero.hero21 img {
+    max-width: 85px;
+    padding: 0 2px;
+  }
+
+  .hero.hero21 h1 {
+    font-size: 1.08rem;
+    line-height: 1.17;
+    margin-top: 3px;
   }
 }
