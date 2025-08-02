@@ -2,6 +2,24 @@
   "originUrl": "https://www.sky.com",
   "urls": [
     {
+      "url": "https://www.sky.com",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "4df0db23e0b454b9297e7ade546a94c4f6f3b910"
+    },
+    {
+      "url": "https://www.sky.com/#footer",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "17fa46e7378c0b63afb5787e770301b722c6b3cc"
+    },
+    {
+      "url": "https://www.sky.com/#nav",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d"
+    },
+    {
       "url": "https://www.sky.com/glass",
       "source": "MANUAL",
       "targetPath": "/glass",
