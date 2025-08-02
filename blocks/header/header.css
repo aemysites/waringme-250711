@@ -4,7 +4,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
-  background: rgb(247, 248, 245) none repeat scroll 0% 0% / auto padding-box border-box;
+  background: rgb(247 248 245) none repeat scroll 0% 0% / auto padding-box border-box;
 }
 
 header nav {
