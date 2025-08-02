@@ -1,24 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the grid that represents the columns structure
-  const grid = element.querySelector('.grid-layout, .w-layout-grid');
+  // Header row for the table, exact as per requirements
+  const headerRow = ['Columns (columns17)'];
+
+  // Find grid container: the immediate container for columns
+  // It's the .grid__Grid-sc-ysk8de-0 element
+  const grid = element.querySelector('.grid__Grid-sc-ysk8de-0');
   if (!grid) return;
 
-  // Get all direct children of the grid (these represent each column)
-  const columns = Array.from(grid.children);
-  if (!columns.length) return;
+  // Two main columns: left (content) and right (image)
+  // Find the left column: .box__Box-sc-1i8zs0c-0.hFTtFW
+  const leftColContainer = grid.querySelector('.box__Box-sc-1i8zs0c-0.hFTtFW');
+  // Find the right column: the only <img> under grid
+  const rightImg = grid.querySelector('img');
 
-  // Table header must be EXACTLY one cell with block name
+  // Collect left column content in order: h2, markdown, ctas
+  const leftContent = [];
+  if (leftColContainer) {
+    // Heading h2 (How to watch)
+    const h2 = leftColContainer.querySelector('h2');
+    if (h2) leftContent.push(h2);
+    // The markdown block (Sky Glass, Sky Stream, Sky Q sections)
+    const markdown = leftColContainer.querySelector('[data-skyui-core="Markdown@11.7.1"]');
+    if (markdown) leftContent.push(markdown);
+    // CTA buttons container
+    const ctaContainer = leftColContainer.querySelector('[data-test-id="show.how-to-watch.ctas"]');
+    if (ctaContainer) {
+      // Add all children (buttons) of the CTA container
+      Array.from(ctaContainer.children).forEach(child => leftContent.push(child));
+    }
+  }
+
+  // Right content is just the image
+  const rightContent = rightImg ? [rightImg] : [];
+
+  // Compose the cells array to match 2 columns
   const cells = [
-    ['Columns (columns17)']
+    headerRow,
+    [leftContent, rightContent]
   ];
 
-  // Second row: one cell per column (side by side)
-  cells.push(columns);
-
-  // Create the block table
+  // Create and replace with the block table
   const block = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element with the columns block
   element.replaceWith(block);
 }

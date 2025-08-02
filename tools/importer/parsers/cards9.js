@@ -1,83 +1,49 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Prepare the header exactly as specified in the example
+  // Create table header row exactly as required
   const headerRow = ['Cards (cards9)'];
+  const rows = [headerRow];
 
-  // 2. Optional lead/intro row: extract intro heading and description, if present
-  let introHeading = null;
-  let introDesc = null;
-  // Find the first h2
-  const h2 = element.querySelector('h2');
-  if (h2) {
-    introHeading = h2;
-    // Try to find the paragraph/markdown intro text (usually in a span inside another box)
-    // Look for any sibling in the same parent hierarchy with a span
-    const introBox = h2.closest('div');
-    if (introBox) {
-      const descSpan = introBox.querySelector('div[data-skyui-core*="Markdown"], .box__Box-sc-1i8zs0c-0.hxPhwb, span[data-skyui-core*="Markdown"]');
-      if (descSpan) {
-        introDesc = descSpan;
+  // Find all card container divs (direct children with data-test-id)
+  const cardDivs = Array.from(element.querySelectorAll(':scope > [data-test-id^="feature-tiles-card-"]'));
+
+  cardDivs.forEach(card => {
+    // Get image (img element, if any)
+    const img = card.querySelector('img');
+
+    // Get the card title (first p direct descendant inside card, typically a heading)
+    // and description (any other p inside card)
+    let title = null;
+    let description = null;
+    // Sometimes layout may differ, so allow for multiple ps
+    const ps = Array.from(card.querySelectorAll('p'));
+    if (ps.length > 0) {
+      title = ps[0];
+      // If more than 1, treat the rest as description
+      if (ps.length > 1) {
+        // If there are >2, combine them in order (as multiple paragraphs)
+        description = ps.slice(1);
       }
     }
-  }
 
-  // 3. Gather all card LIs (ul > li)
-  const cardLis = element.querySelectorAll('ul.sc-hLQSwg.kqVHMs > li');
-  const rows = [];
+    // Compose text cell contents, preserving element references
+    let textCell = [];
+    if (title) textCell.push(title);
+    if (description) textCell = textCell.concat(description);
 
-  cardLis.forEach(li => {
-    // Card link
-    const cardLink = li.querySelector('a');
-    // Card image: the first .sc-kiTBBF img (main image)
-    let img = cardLink.querySelector('.sc-kiTBBF img');
-    if (!img) img = cardLink.querySelector('img'); // fallback
-
-    // Card text: title (h3) and desc (p)
-    const textBox = cardLink.querySelector('.cahull .fHkWjE');
-    let title = null, desc = null;
-    if (textBox) {
-      title = textBox.querySelector('h3');
-      desc = textBox.querySelector('p');
+    // If no title/desc found, fallback to text contents of all child nodes
+    if (!title && !description) {
+      // As a last resort, grab all text nodes in card
+      const txt = card.textContent.trim();
+      if (txt) textCell.push(txt);
     }
-
-    // 2nd cell: compose text content with semantic HTML (heading strong, then linebreak, then description)
-    const textFrag = document.createDocumentFragment();
-    if (title) {
-      const strong = document.createElement('strong');
-      strong.innerHTML = title.innerHTML;
-      textFrag.appendChild(strong);
-      textFrag.appendChild(document.createElement('br'));
-    }
-    if (desc) {
-      // Use a span for description (to match semantic grouping)
-      const span = document.createElement('span');
-      span.innerHTML = desc.innerHTML;
-      textFrag.appendChild(span);
-    }
-    // Per spec, CTA is not required unless visible in the example
-    rows.push([img, textFrag]);
+    rows.push([
+      img,
+      textCell
+    ]);
   });
 
-  // 4. Add intro row if there is intro content
-  if (introHeading || introDesc) {
-    const introFrag = document.createDocumentFragment();
-    if (introHeading) {
-      const strong = document.createElement('strong');
-      strong.textContent = introHeading.textContent;
-      introFrag.appendChild(strong);
-      introFrag.appendChild(document.createElement('br'));
-    }
-    if (introDesc) {
-      // Use only the text content (not whole div, just the contained text)
-      const span = document.createElement('span');
-      span.textContent = introDesc.textContent.trim();
-      introFrag.appendChild(span);
-    }
-    rows.unshift(['', introFrag]); // empty image cell
-  }
-
-  // 5. Build the table, preserving order: header, intro row (if any), then cards
-  const tableRows = [headerRow, ...rows];
-  const block = WebImporter.DOMUtils.createTable(tableRows, document);
+  // Build the table block
+  const block = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(block);
 }

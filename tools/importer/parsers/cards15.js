@@ -1,49 +1,63 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row with block name exactly as in example
-  const headerRow = ['Cards (cards15)'];
+  // Find all direct card containers
+  const cardEls = Array.from(element.querySelectorAll('[data-test-id="packages-cards"]'));
+  // Build rows for the cards block
+  const rows = [];
+  // Header row as per requirement and example
+  rows.push(['Cards (cards15)']);
+  // For each card, extract image(s) and text content
+  cardEls.forEach(card => {
+    // Images: all img under ul[data-test-id=packages-cards-thumbnails]
+    const thumbsUl = card.querySelector('ul[data-test-id="packages-cards-thumbnails"]');
+    let leftCell = null;
+    if (thumbsUl) {
+      const imgs = Array.from(thumbsUl.querySelectorAll('img'));
+      if (imgs.length > 1) {
+        leftCell = imgs;
+      } else if (imgs.length === 1) {
+        leftCell = imgs[0];
+      }
+    }
+    // Right cell: build up text block from elements
+    const rightCellItems = [];
 
-  // Find the flex row that contains the two card blocks
-  const mainContentDiv = element.querySelector('div > div > div.flex__Flex-sc-1r1ee79-0.jmUgLh');
-  if (!mainContentDiv) return;
-  const cardsRow = mainContentDiv.querySelector('div.flex__Flex-sc-1r1ee79-0.dNBTcY');
-  if (!cardsRow) return;
-  const cardDivs = Array.from(cardsRow.children).filter(
-    child => child.querySelector('img')
-  );
-
-  // Map each card to a row [ image, text content ]
-  const rows = cardDivs.map(card => {
-    const img = card.querySelector('img');
-    // The text box is the div with the two <p> tags
-    const textBox = card.querySelector('div.keZUXi > div');
-    const ps = textBox ? Array.from(textBox.querySelectorAll('p')) : [];
-    const cta = card.querySelector('a');
-    // Compose text cell: Heading (strong or h3), then desc(s), then CTA
-    const cellParts = [];
-    if (ps.length > 0) {
-      // First paragraph as strong (title)
+    // Title: p.text__TextElement-sc-qf7y4e-0.csdvmT
+    const title = card.querySelector('p.text__TextElement-sc-qf7y4e-0.csdvmT');
+    if (title) {
       const strong = document.createElement('strong');
-      strong.innerHTML = ps[0].innerHTML;
-      cellParts.push(strong);
+      strong.textContent = title.textContent;
+      rightCellItems.push(strong);
     }
-    if (ps.length > 1) {
-      cellParts.push(document.createElement('br'));
-      cellParts.push(ps[1]);
+    // Description: p.text__TextElement-sc-qf7y4e-0.kayiBF
+    const desc = card.querySelector('p.text__TextElement-sc-qf7y4e-0.kayiBF');
+    if (desc) {
+      if (rightCellItems.length > 0) rightCellItems.push(document.createElement('br'));
+      rightCellItems.push(desc);
     }
+    // Price: look for .kgnNWM inside the card
+    const price = card.querySelector('.kgnNWM');
+    if (price) {
+      rightCellItems.push(document.createElement('br'));
+      rightCellItems.push(price);
+    }
+    // CTA: a[data-test-id="packages-cards-cta"]
+    const cta = card.querySelector('a[data-test-id="packages-cards-cta"]');
     if (cta) {
-      cellParts.push(document.createElement('br'));
-      cellParts.push(cta);
+      rightCellItems.push(document.createElement('br'));
+      rightCellItems.push(cta);
     }
-    // Fallback: if text is truly missing, add an empty string
-    if (cellParts.length === 0) cellParts.push('');
-    return [img, cellParts];
+    // Extra info: span.ijnmSx (contract note)
+    const note = card.querySelector('.ijnmSx');
+    if (note) {
+      rightCellItems.push(document.createElement('br'));
+      rightCellItems.push(note);
+    }
+    // Clean leading br if present
+    while(rightCellItems[0] && rightCellItems[0].tagName === 'BR') rightCellItems.shift();
+    rows.push([leftCell, rightCellItems]);
   });
-
-  // Compose and replace
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    ...rows
-  ], document);
+  // Create the block table
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }
