@@ -1,36 +1,25 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the grid that lays out the columns
-  // In this markup, section > div.w-layout-grid.grid-layout is the main columns grid
-  // It contains: [0]: inner grid with content, [1]: image
-  const columnsGrid = element.querySelector(':scope > div.w-layout-grid');
-  if (!columnsGrid) return; // safety check
-  
-  // Get direct children of the main columns grid
-  const colChildren = Array.from(columnsGrid.children);
+  // Header row: exactly one cell
+  const headerRow = ['Columns (columns23)'];
 
-  // One is a div (with all content), one is the image
-  let contentBlock = null;
-  let imageBlock = null;
-
-  colChildren.forEach((child) => {
-    if (child.tagName === 'DIV' && !contentBlock) {
-      contentBlock = child;
-    } else if (child.tagName === 'IMG' && !imageBlock) {
-      imageBlock = child;
-    }
-  });
-  
-  // Inside the contentBlock, there is a single DIV containing the heading, text, and buttons
-  // Sometimes another wrapping grid
-  if (contentBlock && contentBlock.children.length === 1 && contentBlock.children[0].tagName === 'DIV') {
-    contentBlock = contentBlock.children[0];
+  // Find the <ul> containing the columns
+  const ul = element.querySelector('ul');
+  let columns = [];
+  if (ul) {
+    const lis = Array.from(ul.children);
+    columns = lis.map(li => {
+      // Try to get the grid div in each li
+      const gridDiv = li.querySelector('[data-skyui-core^="Grid@"], .grid__Grid-sc-ysk8de-0');
+      return gridDiv || li;
+    });
   }
 
-  // Table header row MUST match example
-  const headerRow = ['Columns (columns23)'];
-  // Table content row: [content, image]
-  const blockRows = [headerRow, [contentBlock, imageBlock]];
-  const table = WebImporter.DOMUtils.createTable(blockRows, document);
-  element.replaceWith(table);
+  // Only create table if we have columns
+  if (columns.length > 0) {
+    // Structure: first row = headerRow (single cell), second row = columns (one per cell)
+    const tableArr = [headerRow, columns];
+    const table = WebImporter.DOMUtils.createTable(tableArr, document);
+    element.replaceWith(table);
+  }
 }

@@ -1,43 +1,73 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Prepare table header exactly as required
   const headerRow = ['Cards (cards13)'];
+  const cells = [headerRow];
 
-  // 2. Get all top-level card containers (immediate children)
-  const cards = Array.from(element.querySelectorAll(':scope > div'));
-  const rows = [headerRow];
-
-  cards.forEach((card) => {
-    // First cell: mandatory image/icon (first img in card)
-    const img = card.querySelector('img');
-
-    // Second cell: text content (title + description, keep structure)
-    // Robustly select title (first <p> direct child of the right flex/box)
-    let title = null;
-    let desc = null;
-
-    // Get the immediate box (contains text)
-    const box = card.querySelector('div[data-skyui-core*="Box"], div[class*="box__Box"]');
-    if (box) {
-      const flex = box.querySelector('div[data-skyui-core*="Flex"], div[class*="flex__Flex"]');
-      if (flex) {
-        // First p: title (should always exist, but check)
-        title = flex.querySelector('p');
-        // Desc: in intersection animator > p
-        const animator = flex.querySelector('[data-test-id="intersection animator"]');
-        if (animator) {
-          desc = animator.querySelector('p');
-        }
-      }
+  // Find the first visible tabpanel (no aria-hidden or aria-hidden="false")
+  const tabpanels = element.querySelectorAll('[role="tabpanel"]');
+  let galleryPanel = null;
+  for (const panel of tabpanels) {
+    if (!panel.hasAttribute('aria-hidden') || panel.getAttribute('aria-hidden') === 'false') {
+      galleryPanel = panel;
+      break;
     }
-    // Compose the text cell (array of elements, only if they exist)
-    const textCell = [];
-    if (title) textCell.push(title);
-    if (desc) textCell.push(desc);
-    rows.push([img, textCell]);
-  });
-
-  // 3. Create and replace the table
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  }
+  if (!galleryPanel) {
+    element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
+    return;
+  }
+  // Get all <li> inside the visible panel's <ul>
+  const lis = Array.from(galleryPanel.querySelectorAll('ul > li'));
+  for (const li of lis) {
+    const img = li.querySelector('img');
+    let imageCell = '';
+    let textCell = '';
+    if (img) {
+      imageCell = img;
+      const title = img.getAttribute('alt') || '';
+      let heading = null;
+      if (title) {
+        heading = document.createElement('strong');
+        heading.textContent = title;
+      }
+      // Attempt to find description text, if any, after the image
+      let description = '';
+      let foundImg = false;
+      li.childNodes.forEach((node) => {
+        if (node === img) {
+          foundImg = true;
+        } else if (foundImg) {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            description += node.textContent.trim() + ' ';
+          } else if (node.nodeType === Node.ELEMENT_NODE && node !== img && node.textContent.trim()) {
+            description += node.textContent.trim() + ' ';
+          }
+        }
+      });
+      description = description.trim();
+      // If no description found after <img>, try before <img> (some HTML may have it before)
+      if (!description) {
+        li.childNodes.forEach((node) => {
+          if (node !== img && node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            description += node.textContent.trim() + ' ';
+          }
+        });
+        description = description.trim();
+      }
+      const fragments = [];
+      if (heading) fragments.push(heading);
+      if (description) {
+        const descP = document.createElement('p');
+        descP.textContent = description;
+        fragments.push(descP);
+      }
+      textCell = fragments.length > 1 ? fragments : (fragments[0] || '');
+    } else {
+      // If no image, use text
+      textCell = li.textContent.trim();
+    }
+    cells.push([imageCell, textCell]);
+  }
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
