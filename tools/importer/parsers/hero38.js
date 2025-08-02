@@ -1,47 +1,33 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Table header (block name)
+  // Table header row: must match the example exactly.
   const headerRow = ['Hero (hero38)'];
 
-  // 2. Background Image Row: Should be just the main hero image if present
-  // Try to find a top-level grid-layout > div > img which has an appropriate class for background/cover
-  let bgImg = null;
-  const gridDivs = element.querySelectorAll('.w-layout-grid.grid-layout > div');
-  for (const div of gridDivs) {
-    const img = div.querySelector('img.cover-image, img');
-    if (img) {
-      bgImg = img;
-      break;
-    }
+  // Second row: background image. Not present in this HTML, so pass an empty string (as in the markdown example)
+  const backgroundRow = [''];
+
+  // Third row: title, subheading, CTA etc
+  // We'll extract all visible heading and paragraph elements (h1-h6, p), keeping document order, and any links (for CTA)
+  // Reference the actual elements from the DOM, not clones
+  // To be robust, look for all headings and paragraphs inside the block, in DOM order
+  const allowedTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'A', 'BUTTON'];
+  const contentElems = [];
+
+  // Use a TreeWalker to keep elements in DOM order
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: (node) => allowedTags.includes(node.tagName) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+  });
+  let currentNode = walker.nextNode();
+  while (currentNode) {
+    contentElems.push(currentNode);
+    currentNode = walker.nextNode();
   }
 
-  // 3. Content Row: find container with text, button, headings
-  // The content is in the .container utility-position-relative div
-  let contentContainer = null;
-  const containers = element.querySelectorAll('.container.utility-position-relative');
-  if (containers.length) {
-    contentContainer = containers[0];
-  } else {
-    // fallback: second grid-layout child, as per observed pattern
-    const grids = element.querySelectorAll('.w-layout-grid.grid-layout');
-    if (grids.length > 1) {
-      // Find the first grid child that isn't the one holding the image
-      for (let i = 1; i < grids.length; i++) {
-        if (grids[i].contains(element.querySelector('h1'))) {
-          contentContainer = grids[i];
-          break;
-        }
-      }
-      if (!contentContainer) contentContainer = grids[1];
-    }
-  }
+  // If nothing found, fallback to the whole element
+  const contentRow = [contentElems.length ? contentElems : [element]];
 
-  // Assemble block table as per spec: 1 col, 3 rows
-  const cells = [
-    headerRow,
-    [bgImg ? bgImg : ''],
-    [contentContainer ? contentContainer : '']
-  ];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(block);
+  // Build the table
+  const cells = [headerRow, backgroundRow, contentRow];
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(table);
 }

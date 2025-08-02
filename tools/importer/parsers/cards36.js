@@ -1,64 +1,48 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the grid that contains all cards
-  const container = element.querySelector('.container');
-  if (!container) return;
-  // The main grid is the only direct child grid of container
-  let mainGrid = container.querySelector('.w-layout-grid.grid-layout');
-  if (!mainGrid) return;
+  // Block header from spec
+  const headerRow = ['Cards (cards36)'];
 
-  // The main grid may contain <a> (main card), and nested grid with more cards
-  const rootCards = [];
-  Array.from(mainGrid.children).forEach((child) => {
-    // Main card: <a>
-    if (child.tagName === 'A') {
-      rootCards.push(child);
+  // Find the main <ul> of cards flexibly (class names may vary)
+  const ul = element.querySelector('ul');
+  if (!ul) return;
+  const cards = Array.from(ul.children);
+
+  const rows = cards.map((li) => {
+    // Find the direct container (should contain <a> and <span>)
+    const cardContainer = li.querySelector('div');
+    if (!cardContainer) return null;
+    // Find the FIRST (main) <img> for the visual
+    let img = cardContainer.querySelector('img');
+    // Find the label, prefer <span>, as in the current HTML
+    const labelSpan = cardContainer.querySelector('span');
+    // We'll create a <strong> for the label to match example semantics
+    let labelContent = null;
+    if (labelSpan) {
+      labelContent = document.createElement('strong');
+      labelContent.textContent = labelSpan.textContent.trim();
+    } else {
+      // fallback: use text inside <a>, if no <span>
+      const a = cardContainer.querySelector('a');
+      if (a && a.textContent.trim()) {
+        labelContent = document.createElement('strong');
+        labelContent.textContent = a.textContent.trim();
+      }
     }
-    // Nested grid: add all <a> inside
-    if (child.classList.contains('w-layout-grid')) {
-      rootCards.push(...child.querySelectorAll('a.utility-link-content-block'));
+    // Some cards may have additional description, though in this HTML they do not.
+    // For flexibility, find any other text nodes in cardContainer (except <span> and <a>)
+    // But for this structure, just the label is used.
+    // Place image and text as per block requirement, referencing existing elements
+    if (img && labelContent) {
+      return [img, labelContent];
     }
-  });
+    return null;
+  }).filter(Boolean);
 
-  // Helper to extract each card's image and text content (referencing source DOM)
-  function extractCard(card) {
-    // Image: first <img> inside card
-    const img = card.querySelector('img');
-    // Heading: h2, h3, or h4
-    const heading = card.querySelector('h2, h3, h4');
-    // Description: first <p> after heading
-    let desc = null;
-    if (heading) {
-      // Find the next <p> sibling of heading
-      let sib = heading.nextElementSibling;
-      while (sib && sib.tagName !== 'P') sib = sib.nextElementSibling;
-      desc = sib || null;
-    }
-    // CTA/Button: element with class 'button', but only if not just a visual button
-    let cta = null;
-    const button = card.querySelector('.button');
-    if (button && button.textContent.trim()) cta = button;
-
-    // Build content cell (reference source elements)
-    const cellContent = [];
-    if (heading) cellContent.push(heading);
-    if (desc) cellContent.push(desc);
-    if (cta) cellContent.push(cta);
-
-    return [img, cellContent];
-  }
-
-  // Prepare table rows: header, then 1 row per card
-  const rows = [['Cards (cards36)']];
-  rootCards.forEach(card => {
-    const [img, textContent] = extractCard(card);
-    // Only push card if at least image and text are present
-    if (img && textContent.length) {
-      rows.push([img, textContent]);
-    }
-  });
-
-  // Create the table block
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Construct the table: header, then one row per card
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    ...rows
+  ], document);
   element.replaceWith(table);
 }

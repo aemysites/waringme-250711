@@ -1,38 +1,70 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Table header, must match exactly
+  // Header row
   const headerRow = ['Hero (hero19)'];
 
-  // Find the background images block
-  // This is the .ix-hero-scale-3x-to-1x .grid-layout with imgs
-  let backgroundCell = '';
-  const gridWrapper = element.querySelector('.ix-hero-scale-3x-to-1x');
-  if (gridWrapper) {
-    const gridLayout = gridWrapper.querySelector('.grid-layout');
-    if (gridLayout) {
-      // Use all <img> elements as the background collage
-      const imgs = Array.from(gridLayout.querySelectorAll('img'));
-      // Only add if there is at least one image
-      if (imgs.length > 0) {
-        backgroundCell = imgs;
-      }
+  // --- Row 2: Background Image ---
+  // Find the main hero image (background)
+  let bgImg = null;
+  const heroMaskBox = element.querySelector('.Hero__MaskBox-sc-f6nat5-1');
+  if (heroMaskBox) {
+    bgImg = heroMaskBox.querySelector('img');
+  }
+  const bgRow = [bgImg ? bgImg : ''];
+
+  // --- Row 3: Content ---
+  // Compose the content div, using only elements from the document
+  const contentDiv = document.createElement('div');
+
+  // Get logo image (the smaller logo in the content area)
+  const logoImg = element.querySelector('.bMVJpf img');
+  if (logoImg) {
+    contentDiv.appendChild(logoImg);
+  }
+
+  // Main heading (h1 -- visually hidden in the DOM but should be visible in block)
+  const mainHeading = element.querySelector('.bMVJpf h1');
+  if (mainHeading) {
+    const h1 = document.createElement('h1');
+    h1.textContent = mainHeading.textContent;
+    contentDiv.appendChild(h1);
+  }
+
+  // Subheading (h2)
+  const subHeading = element.querySelector('.bMVJpf h2');
+  if (subHeading) {
+    contentDiv.appendChild(subHeading);
+  }
+
+  // CTAs
+  const ctas = element.querySelector('[data-test-id="show.hero.ctas"]');
+  if (ctas) {
+    // Collect only direct <a> children of CTAs
+    const ctaLinks = Array.from(ctas.querySelectorAll('a'));
+    if (ctaLinks.length > 0) {
+      const ctaDiv = document.createElement('div');
+      ctaLinks.forEach(a => ctaDiv.appendChild(a));
+      contentDiv.appendChild(ctaDiv);
     }
   }
 
-  // Find the text and CTAs
-  // .ix-hero-scale-3x-to-1x-content .container
-  let contentCell = '';
-  const textContent = element.querySelector('.ix-hero-scale-3x-to-1x-content .container');
-  if (textContent) {
-    contentCell = textContent;
+  // Supporting/description text (strong in span.fKxLCo)
+  const descSpan = element.querySelector('.fKxLCo');
+  if (descSpan && descSpan.textContent.trim()) {
+    // We use a <p> tag for the supporting text
+    const p = document.createElement('p');
+    p.innerHTML = descSpan.innerHTML;
+    contentDiv.appendChild(p);
   }
 
-  // Create the table structure: 1 column, 3 rows
-  const rows = [
+  const contentRow = [contentDiv];
+
+  // Compose table and replace
+  const cells = [
     headerRow,
-    [backgroundCell],
-    [contentCell],
+    bgRow,
+    contentRow
   ];
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

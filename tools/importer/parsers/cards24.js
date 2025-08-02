@@ -1,42 +1,36 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Table header row as per block requirements
-  const rows = [['Cards (cards24)']];
+  // Cards (cards24) block
+  const headerRow = ['Cards (cards24)'];
+  const rows = [headerRow];
 
-  // Select all card links (each card is an <a> element)
-  const cards = element.querySelectorAll(':scope > a.utility-link-content-block');
+  // Find list items that correspond to cards
+  const ul = element.querySelector('ul');
+  if (ul) {
+    const lis = ul.querySelectorAll(':scope > li');
+    lis.forEach(li => {
+      // Get card image (first img descendant of the card)
+      const cardDiv = li.querySelector(':scope > div');
+      if (!cardDiv) return;
+      const img = cardDiv.querySelector('img');
+      // Get card title (span inside card)
+      const titleSpan = cardDiv.querySelector('span');
 
-  cards.forEach(card => {
-    // ----- First cell: Image element -----
-    // Find the first <img> inside the card
-    let imageEl = null;
-    const imageContainer = card.querySelector('div.utility-aspect-2x3');
-    if (imageContainer) {
-      imageEl = imageContainer.querySelector('img');
-    }
-
-    // ----- Second cell: Textual content -----
-    // We want: tag(s) + date, heading/title
-    const textCellContent = [];
-
-    // Tag + date row
-    const tagRow = card.querySelector('div.flex-horizontal');
-    if (tagRow) {
-      textCellContent.push(tagRow);
-    }
-
-    // Heading/title
-    const heading = card.querySelector('h1, h2, h3, h4, h5, h6');
-    if (heading) {
-      textCellContent.push(heading);
-    }
-
-    rows.push([
-      imageEl || '',
-      textCellContent
-    ]);
-  });
-
+      // Prepare title element as <strong> (heading style)
+      let titleEl = '';
+      if (titleSpan) {
+        // Use the original span for best preservation, but ensure semantic meaning
+        // Replace with <strong> if you want bold only, but semantically it's a heading
+        const strong = document.createElement('strong');
+        strong.textContent = titleSpan.textContent;
+        titleEl = strong;
+      }
+      rows.push([
+        img,
+        titleEl ? [titleEl] : ''
+      ]);
+    });
+  }
   const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }
