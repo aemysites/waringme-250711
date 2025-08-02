@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "'Dashboard Template'",
+      "name": "'Dashboard Interface'",
       "cluster": 2,
       "pages": [
         {
@@ -29,8 +29,32 @@
       ]
     },
     {
-      "name": "'Portfolio Showcase'",
+      "name": "'Media Showcase Page'",
       "cluster": 3,
+      "pages": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "uuid": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "uuid": "17fa46e7378c0b63afb5787e770301b722c6b3cc"
+        }
+      ]
+    },
+    {
+      "name": "'Magazine Homepage'",
+      "cluster": 4,
+      "pages": [
+        {
+          "url": "https://www.sky.com",
+          "uuid": "4df0db23e0b454b9297e7ade546a94c4f6f3b910"
+        }
+      ]
+    },
+    {
+      "name": "'Portfolio Showcase'",
+      "cluster": 5,
       "pages": [
         {
           "url": "https://www.sky.com/watch",
@@ -39,22 +63,22 @@
       ]
     },
     {
-      "name": "'Dashboard Template'",
-      "cluster": 4,
-      "pages": [
-        {
-          "url": "https://www.sky.com/glass",
-          "uuid": "57e984e70862dcc7447b4b38fb400642bd81f110"
-        }
-      ]
-    },
-    {
       "name": "'Entertainment Hub'",
-      "cluster": 5,
+      "cluster": 6,
       "pages": [
         {
           "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
           "uuid": "898600c179689bfd389b111c1d94e47b88f0108a"
+        }
+      ]
+    },
+    {
+      "name": "'E-commerce Product Showcase'",
+      "cluster": 7,
+      "pages": [
+        {
+          "url": "https://www.sky.com/glass",
+          "uuid": "57e984e70862dcc7447b4b38fb400642bd81f110"
         }
       ]
     }

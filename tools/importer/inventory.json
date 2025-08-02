@@ -12,6 +12,24 @@
           "xpath": "/html[1]/body[1]/div[1]/div[1]"
         },
         {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
           "url": "https://www.sky.com/glass",
           "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
           "uuid": "57e984e7-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
@@ -64,6 +82,24 @@
           "xpath": "/html[1]/body[1]/div[1]/div[2]"
         },
         {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
           "url": "https://www.sky.com/glass",
           "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
           "uuid": "57e984e7-11-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
@@ -105,11 +141,32 @@
   ],
   "blocks": [
     {
-      "name": "Cards",
+      "name": "Hero",
       "cluster": 1,
-      "source": "Cards",
-      "target": "Cards (cards1)",
-      "key": "cards1",
+      "source": "Hero",
+      "target": "Hero (hero1)",
+      "key": "hero1",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-03-cab317baa4717dbe37585cd881296e8b5f41be43",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-03-cab317baa4717dbe37585cd881296e8b5f41be43",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 2,
+      "source": "Carousel",
+      "target": "Carousel (carousel2)",
+      "key": "carousel2",
       "instances": [
         {
           "url": "https://www.sky.com/watch",
@@ -149,110 +206,70 @@
       ]
     },
     {
-      "name": "Hero",
-      "cluster": 2,
-      "source": "Hero",
-      "target": "Hero (hero2)",
-      "key": "hero2",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-03-cab317baa4717dbe37585cd881296e8b5f41be43",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[1]"
-        },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-03-cab317baa4717dbe37585cd881296e8b5f41be43",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[1]"
-        }
-      ]
-    },
-    {
-      "name": "Accordion",
-      "cluster": 3,
-      "source": "Accordion",
-      "target": "Accordion (accordion3)",
-      "key": "accordion3",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-15-806fa17d74ae36b38b8bbb8ac1b0a2248836c329",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[9]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/glass",
-          "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
-          "uuid": "57e984e7-09-ca387fba1f9b5c8091f69447f767d36f096cc09a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-16-232683fe2011119a7ad63750227e840bbcbe5d62",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[12]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-13-8ad5a7c46ba450d7f24f0ab31b014ddc7bfaeb46",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[8]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/watch",
-          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
-          "uuid": "e1df15d2-15-1e2374de61afbf3664ff169827f071c11e8a9803",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[13]"
-        }
-      ]
-    },
-    {
       "name": "Columns",
-      "cluster": 4,
+      "cluster": 3,
       "source": "Columns",
-      "target": "Columns (columns4)",
-      "key": "columns4",
+      "target": "Columns (columns3)",
+      "key": "columns3",
       "instances": [
         {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-08-1c53700a952799641a75636d81e8530bf201098a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]/section[1]/div[2]/div[1]/div[2]",
-          "section": "section-2"
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-15-1b932a3d5854e88c1e31c00f1f32d413d91824c5",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[11]",
+          "section": "section-1"
         },
         {
           "url": "https://www.sky.com/tv/sky-q",
           "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-08-0dd3442c962bd9ef07bffb71c3fef1da5358b00c",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/section[1]/div[2]/div[1]/div[2]",
-          "section": "section-2"
+          "uuid": "9458f0f9-12-4207a4d0463bfbe567a291be19584dd1220e50fc",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[6]",
+          "section": "section-1"
         },
         {
           "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
           "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-07-c529fa1c57c91ccc98d4509338f2c772b7517c4b",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/div[1]/div[2]/div[1]/div[2]"
+          "uuid": "c635e457-12-3899aebbddf22d13a9ef7c5133c8324ae48b95ef",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]",
+          "section": "section-1"
         }
       ]
     },
     {
       "name": "Cards",
-      "cluster": 5,
+      "cluster": 4,
       "source": "Cards",
-      "target": "Cards (cards5)",
-      "key": "cards5",
+      "target": "Cards (cards4)",
+      "key": "cards4",
       "instances": [
         {
           "url": "https://www.sky.com/glass",
           "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
           "uuid": "57e984e7-02-f494ffff918842b4c85da11c1aa057190ee5150c",
           "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 5,
+      "source": "Columns",
+      "target": "Columns (columns5)",
+      "key": "columns5",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-11-ee36a6952e4994be81f07b13104224d4114d7435",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]/div[1]/div[1]/div[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/sky-q",
+          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
+          "uuid": "9458f0f9-10-cdf557a3ceed2a9a8088cdbf3438cf90ccd28814",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]/div[1]/div[1]/div[1]",
+          "section": "section-1"
         }
       ]
     },
@@ -299,6 +316,24 @@
           "xpath": "/html[1]/body[1]/div[1]/div[1]"
         },
         {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
+          "xpath": "/html[1]/body[1]/div[1]/div[1]"
+        },
+        {
           "url": "https://www.sky.com/glass",
           "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
           "uuid": "57e984e7-00-467f8ed18ac2f8747100bc9f065a76c0bb5706bb",
@@ -337,71 +372,11 @@
       ]
     },
     {
-      "name": "Cards",
-      "cluster": 8,
-      "source": "Cards",
-      "target": "Cards (cards8)",
-      "key": "cards8",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-04-b34560811f7972406fee92f0f170febf1a22c001",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]"
-        },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-04-b34560811f7972406fee92f0f170febf1a22c001",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]"
-        }
-      ]
-    },
-    {
-      "name": "Cards",
-      "cluster": 9,
-      "source": "Cards",
-      "target": "Cards (cards9)",
-      "key": "cards9",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-06-ca387fba1f9b5c8091f69447f767d36f096cc09a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]",
-          "section": "section-4"
-        },
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-10-8ad5a7c46ba450d7f24f0ab31b014ddc7bfaeb46",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[8]",
-          "section": "section-5"
-        }
-      ]
-    },
-    {
-      "name": "Columns",
-      "cluster": 10,
-      "source": "Columns",
-      "target": "Columns (columns10)",
-      "key": "columns10",
-      "instances": [
-        {
-          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
-          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
-          "uuid": "b2c6cbed-08-aa3cf1542e13e7be02fddfab3cd99dc870fefb1e",
-          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[6]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
       "name": "Accordion",
-      "cluster": 11,
+      "cluster": 8,
       "source": "Accordion",
-      "target": "Accordion (accordion11)",
-      "key": "accordion11",
+      "target": "Accordion (accordion8)",
+      "key": "accordion8",
       "instances": [
         {
           "url": "https://www.sky.com/tv/stream",
@@ -447,11 +422,353 @@
       ]
     },
     {
-      "name": "Columns",
+      "name": "Cards",
+      "cluster": 9,
+      "source": "Cards",
+      "target": "Cards (cards9)",
+      "key": "cards9",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-05-5d2d90d826ce472346d26fc581946886dc089e7c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com/tv/sky-q",
+          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
+          "uuid": "9458f0f9-05-b34560811f7972406fee92f0f170febf1a22c001",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
+      "cluster": 10,
+      "source": "Accordion",
+      "target": "Accordion (accordion10)",
+      "key": "accordion10",
+      "instances": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-05-71d116fe18b017a7ff00f3f6a42c592658d5dd44",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[5]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-05-71d116fe18b017a7ff00f3f6a42c592658d5dd44",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[5]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-05-71d116fe18b017a7ff00f3f6a42c592658d5dd44",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[5]"
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "cluster": 11,
+      "instances": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-01-bf6bc3422b133d22277cf37a21695689ccac15db",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]",
+          "section": "section-4"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-01-bf6bc3422b133d22277cf37a21695689ccac15db",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]",
+          "section": "section-4"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-01-bf6bc3422b133d22277cf37a21695689ccac15db",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[1]",
+          "section": "section-4"
+        }
+      ]
+    },
+    {
+      "name": "Accordion",
       "cluster": 12,
+      "source": "Accordion",
+      "target": "Accordion (accordion12)",
+      "key": "accordion12",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-15-806fa17d74ae36b38b8bbb8ac1b0a2248836c329",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[9]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/glass",
+          "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
+          "uuid": "57e984e7-09-ca387fba1f9b5c8091f69447f767d36f096cc09a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-16-232683fe2011119a7ad63750227e840bbcbe5d62",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[12]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-13-8ad5a7c46ba450d7f24f0ab31b014ddc7bfaeb46",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[8]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/watch",
+          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
+          "uuid": "e1df15d2-15-1e2374de61afbf3664ff169827f071c11e8a9803",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[13]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 13,
+      "source": "Cards",
+      "target": "Cards (cards13)",
+      "key": "cards13",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-08-1c53700a952799641a75636d81e8530bf201098a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]/section[1]/div[2]/div[1]/div[2]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com/tv/sky-q",
+          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
+          "uuid": "9458f0f9-08-0dd3442c962bd9ef07bffb71c3fef1da5358b00c",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/section[1]/div[2]/div[1]/div[2]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-07-c529fa1c57c91ccc98d4509338f2c772b7517c4b",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/div[1]/div[2]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 14,
+      "source": "Carousel",
+      "target": "Carousel (carousel14)",
+      "key": "carousel14",
+      "instances": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-04-31a136b00ee4d368075f69906d1d33fc1ab5c432",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[4]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-04-31a136b00ee4d368075f69906d1d33fc1ab5c432",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[4]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-04-31a136b00ee4d368075f69906d1d33fc1ab5c432",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[4]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 15,
+      "source": "Cards",
+      "target": "Cards (cards15)",
+      "key": "cards15",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-04-b34560811f7972406fee92f0f170febf1a22c001",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-04-b34560811f7972406fee92f0f170febf1a22c001",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 16,
+      "source": "Hero",
+      "target": "Hero (hero16)",
+      "key": "hero16",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/sky-q",
+          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
+          "uuid": "9458f0f9-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
+          "section": "section-1"
+        },
+        {
+          "url": "https://www.sky.com/watch",
+          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
+          "uuid": "e1df15d2-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 17,
       "source": "Columns",
-      "target": "Columns (columns12)",
-      "key": "columns12",
+      "target": "Columns (columns17)",
+      "key": "columns17",
+      "instances": [
+        {
+          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
+          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
+          "uuid": "b2c6cbed-08-aa3cf1542e13e7be02fddfab3cd99dc870fefb1e",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[6]",
+          "section": "section-1"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 18,
+      "source": "Cards",
+      "target": "Cards (cards18)",
+      "key": "cards18",
+      "instances": [
+        {
+          "url": "https://www.sky.com/watch",
+          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
+          "uuid": "e1df15d2-12-f45a7043610511cd2c010bb39f9a35bc1025bbaf",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[11]/div[1]/div[1]/div[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 19,
+      "source": "Hero",
+      "target": "Hero (hero19)",
+      "key": "hero19",
+      "instances": [
+        {
+          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
+          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
+          "uuid": "b2c6cbed-02-ca8712c1b8a873222ab45e96f65d719ac9cb297b",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[2]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "unknown",
+      "cluster": 20,
+      "instances": [
+        {
+          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
+          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
+          "uuid": "b2c6cbed-01-1202332ce7cd8307efd803d8735fefc8bda3f610",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[1]",
+          "section": "section-7"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 21,
+      "source": "Hero",
+      "target": "Hero (hero21)",
+      "key": "hero21",
+      "instances": [
+        {
+          "url": "https://www.sky.com/glass",
+          "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
+          "uuid": "57e984e7-01-d81e4c3c20d0a1791815f1a79398c8ff26da54f4",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]/div[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 22,
+      "source": "Hero",
+      "target": "Hero (hero22)",
+      "key": "hero22",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/stream",
+          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
+          "uuid": "0c373118-02-5b42d60acddad9dc32afeec2776cc2a8dbd9141d",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/section[1]/div[1]",
+          "section": "section-2"
+        },
+        {
+          "url": "https://www.sky.com/tv/sky-q",
+          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
+          "uuid": "9458f0f9-02-189906413876c0f881cbf1d4bb19f0331efb7e1d",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[2]/div[1]/section[1]/div[1]",
+          "section": "section-2"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 23,
+      "source": "Columns",
+      "target": "Columns (columns23)",
+      "key": "columns23",
       "instances": [
         {
           "url": "https://www.sky.com/tv/stream",
@@ -477,36 +794,31 @@
       ]
     },
     {
-      "name": "Cards",
-      "cluster": 13,
-      "source": "Cards",
-      "target": "Cards (cards13)",
-      "key": "cards13",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-05-5d2d90d826ce472346d26fc581946886dc089e7c",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/div[1]/div[1]/div[1]/div[2]",
-          "section": "section-2"
-        },
-        {
-          "url": "https://www.sky.com/tv/sky-q",
-          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-05-b34560811f7972406fee92f0f170febf1a22c001",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[1]/div[2]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
       "name": "unknown",
-      "cluster": 14,
+      "cluster": 24,
       "instances": [
         {
           "url": "https://www.sky.com/tv/stream",
           "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
           "uuid": "0c373118-17-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
+          "xpath": "/html[1]/body[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-06-10ff6870fe0e1e8555c1dab4170caa3e62155dbd",
           "xpath": "/html[1]/body[1]/div[1]/div[2]"
         },
         {
@@ -549,242 +861,87 @@
     },
     {
       "name": "Cards",
-      "cluster": 15,
+      "cluster": 25,
       "source": "Cards",
-      "target": "Cards (cards15)",
-      "key": "cards15",
+      "target": "Cards (cards25)",
+      "key": "cards25",
       "instances": [
         {
           "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
           "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-11-806fa17d74ae36b38b8bbb8ac1b0a2248836c329",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[9]"
+          "uuid": "898600c1-06-ca387fba1f9b5c8091f69447f767d36f096cc09a",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]",
+          "section": "section-5"
         },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-11-4207a4d0463bfbe567a291be19584dd1220e50fc",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[6]"
-        }
-      ]
-    },
-    {
-      "name": "Columns",
-      "cluster": 16,
-      "source": "Columns",
-      "target": "Columns (columns16)",
-      "key": "columns16",
-      "instances": [
         {
           "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
           "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-15-1b932a3d5854e88c1e31c00f1f32d413d91824c5",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[11]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/sky-q",
-          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-12-4207a4d0463bfbe567a291be19584dd1220e50fc",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[6]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-12-3899aebbddf22d13a9ef7c5133c8324ae48b95ef",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
-      "name": "Cards",
-      "cluster": 17,
-      "source": "Cards",
-      "target": "Cards (cards17)",
-      "key": "cards17",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-13-568fe77e8a9b1f193f56a5cc5f48011d764f2cc7",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[10]/div[1]/div[1]/div[2]/div[1]"
-        }
-      ]
-    },
-    {
-      "name": "Carousel",
-      "cluster": 18,
-      "source": "Carousel",
-      "target": "Carousel (carousel18)",
-      "key": "carousel18",
-      "instances": [
-        {
-          "url": "https://www.sky.com/glass",
-          "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
-          "uuid": "57e984e7-08-ffa282119f752079ecb5e25446de6a1864437b04",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
-      "name": "Hero",
-      "cluster": 19,
-      "source": "Hero",
-      "target": "Hero (hero19)",
-      "key": "hero19",
-      "instances": [
-        {
-          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
-          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
-          "uuid": "b2c6cbed-02-ca8712c1b8a873222ab45e96f65d719ac9cb297b",
-          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[2]",
-          "section": "section-2"
-        }
-      ]
-    },
-    {
-      "name": "Hero",
-      "cluster": 20,
-      "source": "Hero",
-      "target": "Hero (hero20)",
-      "key": "hero20",
-      "instances": [
-        {
-          "url": "https://www.sky.com/glass",
-          "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
-          "uuid": "57e984e7-01-d81e4c3c20d0a1791815f1a79398c8ff26da54f4",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]/div[1]/div[1]/div[1]"
-        }
-      ]
-    },
-    {
-      "name": "unknown",
-      "cluster": 21,
-      "instances": [
-        {
-          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
-          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
-          "uuid": "b2c6cbed-01-1202332ce7cd8307efd803d8735fefc8bda3f610",
-          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[1]",
+          "uuid": "898600c1-10-8ad5a7c46ba450d7f24f0ab31b014ddc7bfaeb46",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[8]",
           "section": "section-6"
         }
       ]
     },
     {
-      "name": "Columns",
-      "cluster": 22,
-      "source": "Columns",
-      "target": "Columns (columns22)",
-      "key": "columns22",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-11-ee36a6952e4994be81f07b13104224d4114d7435",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]/div[1]/div[1]/div[1]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/sky-q",
-          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-10-cdf557a3ceed2a9a8088cdbf3438cf90ccd28814",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[5]/div[1]/div[1]/div[1]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
-      "name": "Hero",
-      "cluster": 23,
-      "source": "Hero",
-      "target": "Hero (hero23)",
-      "key": "hero23",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/sky-q",
-          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
-          "uuid": "c635e457-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
-          "section": "section-1"
-        },
-        {
-          "url": "https://www.sky.com/watch",
-          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
-          "uuid": "e1df15d2-01-31d3c8896b1fd3531c6b4d088f068667d668f20a",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[1]",
-          "section": "section-1"
-        }
-      ]
-    },
-    {
       "name": "Cards",
-      "cluster": 24,
+      "cluster": 26,
       "source": "Cards",
-      "target": "Cards (cards24)",
-      "key": "cards24",
+      "target": "Cards (cards26)",
+      "key": "cards26",
       "instances": [
         {
-          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
-          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
-          "uuid": "b2c6cbed-07-c09e7b95ff0f60e36a6061468f3cf09818604808",
-          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[5]/div[1]/div[1]/div[2]/div[1]/div[2]",
-          "section": "section-7"
-        }
-      ]
-    },
-    {
-      "name": "Hero",
-      "cluster": 25,
-      "source": "Hero",
-      "target": "Hero (hero25)",
-      "key": "hero25",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "urlHash": "0c3731184242629170b7cf0e1bde32cc0e44a82e",
-          "uuid": "0c373118-02-5b42d60acddad9dc32afeec2776cc2a8dbd9141d",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/section[1]/div[1]",
-          "section": "section-2"
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-03-d5fc3d9486bbf512afdb4d6200259f86942c1a70",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[3]"
         },
         {
-          "url": "https://www.sky.com/tv/sky-q",
-          "urlHash": "9458f0f93ac36857920ebe3da4248e6097f64fce",
-          "uuid": "9458f0f9-02-189906413876c0f881cbf1d4bb19f0331efb7e1d",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[2]/div[1]/section[1]/div[1]",
-          "section": "section-2"
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-03-d5fc3d9486bbf512afdb4d6200259f86942c1a70",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[3]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-03-d5fc3d9486bbf512afdb4d6200259f86942c1a70",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[3]"
         }
       ]
     },
     {
       "name": "Hero",
-      "cluster": 26,
+      "cluster": 27,
       "source": "Hero",
-      "target": "Hero (hero26)",
-      "key": "hero26",
+      "target": "Hero (hero27)",
+      "key": "hero27",
+      "instances": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "urlHash": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d",
+          "uuid": "117b5bd1-02-4e74b9bf9f7d4a529dd9ad90445c271e68ad92ba",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "urlHash": "17fa46e7378c0b63afb5787e770301b722c6b3cc",
+          "uuid": "17fa46e7-02-4e74b9bf9f7d4a529dd9ad90445c271e68ad92ba",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[2]"
+        },
+        {
+          "url": "https://www.sky.com",
+          "urlHash": "4df0db23e0b454b9297e7ade546a94c4f6f3b910",
+          "uuid": "4df0db23-02-4e74b9bf9f7d4a529dd9ad90445c271e68ad92ba",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 28,
+      "source": "Hero",
+      "target": "Hero (hero28)",
+      "key": "hero28",
       "instances": [
         {
           "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
@@ -796,10 +953,10 @@
     },
     {
       "name": "Columns",
-      "cluster": 27,
+      "cluster": 29,
       "source": "Columns",
-      "target": "Columns (columns27)",
-      "key": "columns27",
+      "target": "Columns (columns29)",
+      "key": "columns29",
       "instances": [
         {
           "url": "https://www.sky.com/tv/stream",
@@ -812,10 +969,10 @@
     },
     {
       "name": "Cards",
-      "cluster": 28,
+      "cluster": 30,
       "source": "Cards",
-      "target": "Cards (cards28)",
-      "key": "cards28",
+      "target": "Cards (cards30)",
+      "key": "cards30",
       "instances": [
         {
           "url": "https://www.sky.com/glass",
@@ -828,23 +985,38 @@
     },
     {
       "name": "unknown",
-      "cluster": 29,
+      "cluster": 31,
       "instances": [
         {
           "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
           "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
           "uuid": "898600c1-07-4207a4d0463bfbe567a291be19584dd1220e50fc",
           "xpath": "/html[1]/body[1]/div[1]/main[1]/section[6]",
-          "section": "section-4"
+          "section": "section-5"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 32,
+      "source": "Cards",
+      "target": "Cards (cards32)",
+      "key": "cards32",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-13-568fe77e8a9b1f193f56a5cc5f48011d764f2cc7",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[10]/div[1]/div[1]/div[2]/div[1]"
         }
       ]
     },
     {
       "name": "Carousel",
-      "cluster": 30,
+      "cluster": 33,
       "source": "Carousel",
-      "target": "Carousel (carousel30)",
-      "key": "carousel30",
+      "target": "Carousel (carousel33)",
+      "key": "carousel33",
       "instances": [
         {
           "url": "https://www.sky.com/watch",
@@ -857,7 +1029,7 @@
     },
     {
       "name": "unknown",
-      "cluster": 31,
+      "cluster": 34,
       "instances": [
         {
           "url": "https://www.sky.com/glass",
@@ -874,11 +1046,27 @@
       ]
     },
     {
+      "name": "Cards",
+      "cluster": 35,
+      "source": "Cards",
+      "target": "Cards (cards35)",
+      "key": "cards35",
+      "instances": [
+        {
+          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
+          "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
+          "uuid": "b2c6cbed-07-c09e7b95ff0f60e36a6061468f3cf09818604808",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[5]/div[1]/div[1]/div[2]/div[1]/div[2]",
+          "section": "section-8"
+        }
+      ]
+    },
+    {
       "name": "Columns",
-      "cluster": 32,
+      "cluster": 36,
       "source": "Columns",
-      "target": "Columns (columns32)",
-      "key": "columns32",
+      "target": "Columns (columns36)",
+      "key": "columns36",
       "instances": [
         {
           "url": "https://www.sky.com/glass",
@@ -889,41 +1077,11 @@
       ]
     },
     {
-      "name": "Cards",
-      "cluster": 33,
-      "source": "Cards",
-      "target": "Cards (cards33)",
-      "key": "cards33",
-      "instances": [
-        {
-          "url": "https://www.sky.com/watch",
-          "urlHash": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478",
-          "uuid": "e1df15d2-12-f45a7043610511cd2c010bb39f9a35bc1025bbaf",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[11]/div[1]/div[1]/div[1]/div[2]"
-        }
-      ]
-    },
-    {
       "name": "Hero",
-      "cluster": 34,
+      "cluster": 37,
       "source": "Hero",
-      "target": "Hero (hero34)",
-      "key": "hero34",
-      "instances": [
-        {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
-          "uuid": "898600c1-08-e990b9bb5595b740e64652849deec53e47bf9171",
-          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]/div[1]/div[1]/div[1]/div[1]"
-        }
-      ]
-    },
-    {
-      "name": "Hero",
-      "cluster": 35,
-      "source": "Hero",
-      "target": "Hero (hero35)",
-      "key": "hero35",
+      "target": "Hero (hero37)",
+      "key": "hero37",
       "instances": [
         {
           "url": "https://www.sky.com/tv/stream",
@@ -936,10 +1094,46 @@
     },
     {
       "name": "Cards",
-      "cluster": 36,
+      "cluster": 38,
       "source": "Cards",
-      "target": "Cards (cards36)",
-      "key": "cards36",
+      "target": "Cards (cards38)",
+      "key": "cards38",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-11-806fa17d74ae36b38b8bbb8ac1b0a2248836c329",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[9]"
+        },
+        {
+          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
+          "urlHash": "c635e457efe6c13e4416163d59b7312e111ffb5a",
+          "uuid": "c635e457-11-4207a4d0463bfbe567a291be19584dd1220e50fc",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[6]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 39,
+      "source": "Hero",
+      "target": "Hero (hero39)",
+      "key": "hero39",
+      "instances": [
+        {
+          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
+          "urlHash": "898600c179689bfd389b111c1d94e47b88f0108a",
+          "uuid": "898600c1-08-e990b9bb5595b740e64652849deec53e47bf9171",
+          "xpath": "/html[1]/body[1]/div[1]/main[1]/section[7]/div[1]/div[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 40,
+      "source": "Cards",
+      "target": "Cards (cards40)",
+      "key": "cards40",
       "instances": [
         {
           "url": "https://www.sky.com/watch",
@@ -952,10 +1146,10 @@
     },
     {
       "name": "Cards",
-      "cluster": 37,
+      "cluster": 41,
       "source": "Cards",
-      "target": "Cards (cards37)",
-      "key": "cards37",
+      "target": "Cards (cards41)",
+      "key": "cards41",
       "instances": [
         {
           "url": "https://www.sky.com/watch",
@@ -967,18 +1161,15 @@
       ]
     },
     {
-      "name": "Hero",
-      "cluster": 38,
-      "source": "Hero",
-      "target": "Hero (hero38)",
-      "key": "hero38",
+      "name": "unknown",
+      "cluster": 42,
       "instances": [
         {
           "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
           "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
           "uuid": "b2c6cbed-05-834f39c9ff2611455c5d555fe4cbc4e2a424762c",
           "xpath": "/html[1]/body[1]/main[1]/div[1]/div[5]/div[1]/div[1]/div[1]",
-          "section": "section-7"
+          "section": "section-8"
         }
       ]
     }
@@ -1024,6 +1215,13 @@
       "uuid": "57e984e7-07-42cb2c32970d96961edc7a6fa90dbd3f29b01196",
       "xpath": "/html[1]/body[1]/div[1]/main[1]/section[3]/div[1]/div[1]/div[2]/div[1]",
       "section": "section-3"
+    },
+    {
+      "url": "https://www.sky.com/glass",
+      "urlHash": "57e984e70862dcc7447b4b38fb400642bd81f110",
+      "uuid": "57e984e7-08-1417af288c76dae4977c6fe99da448ec8274dc3b",
+      "xpath": "/html[1]/body[1]/div[1]/main[1]/section[4]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]",
+      "section": "section-1"
     },
     {
       "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
@@ -1097,7 +1295,7 @@
       "urlHash": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74",
       "uuid": "b2c6cbed-06-059cbfaa342feb7b885ebf45105ea0448f2a42e3",
       "xpath": "/html[1]/body[1]/main[1]/div[1]/div[5]/div[1]/div[1]/div[2]/div[1]/div[1]",
-      "section": "section-7"
+      "section": "section-8"
     },
     {
       "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
@@ -1160,7 +1358,7 @@
     {
       "name": "section-2",
       "background": "rgba(0, 0, 0, 0) linear-gradient(to right, rgb(9, 17, 83) 0%, rgb(12, 27, 135) 100%) repeat scroll 0% 0% / auto padding-box border-box",
-      "count": 24
+      "count": 27
     },
     {
       "name": "section-3",
@@ -1169,21 +1367,26 @@
     },
     {
       "name": "section-4",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(to right, rgb(255, 140, 0) 5%, rgb(248, 0, 50) 25%, rgb(255, 0, 160) 45%, rgb(140, 40, 255) 65%, rgb(0, 35, 255) 82%, rgb(25, 160, 255) 96%) repeat scroll 0% 0% / auto padding-box border-box",
+      "count": 3
+    },
+    {
+      "name": "section-5",
       "background": "rgba(0, 0, 0, 0) linear-gradient(to right, rgb(2, 17, 88) 0%, rgb(18, 36, 118) 100%) repeat scroll 0% 0% / auto padding-box border-box",
       "count": 2
     },
     {
-      "name": "section-5",
+      "name": "section-6",
       "background": "rgba(0, 0, 0, 0) url(\"https://static.skyassets.com/contentstack/assets/blt143e20b03d72047e/blta75975cca66125f6/66350c690d02e4028255a0ec/TNT_Rail_Background.png\") repeat scroll 50% 50% / cover padding-box border-box",
       "count": 1
     },
     {
-      "name": "section-6",
+      "name": "section-7",
       "background": "rgba(0, 0, 0, 0) linear-gradient(to right, rgb(0, 15, 245) 10%, rgb(0, 210, 255) 90%) repeat scroll 0% 0% / auto padding-box border-box",
       "count": 1
     },
     {
-      "name": "section-7",
+      "name": "section-8",
       "background": "rgb(250, 250, 250) none repeat scroll 0% 0% / auto padding-box border-box",
       "count": 3
     }
