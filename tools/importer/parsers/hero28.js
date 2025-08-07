@@ -1,42 +1,36 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Table header row must match exactly
-  const headerRow = ['Hero (hero28)'];
-
-  // 2. Image row (background image) -- not present in this example, so empty string
-  const imageRow = [''];
-
-  // 3. Content row: Heading and sub-content
-  // Heading (h2), then the paragraph/description
-
-  const contentElements = [];
-  // Find the main heading (h2)
-  const h2 = element.querySelector('h2');
-  if (h2) contentElements.push(h2);
-  // Find the descriptive paragraph/span that is not inside the h2
-  // Get all direct descendants (not the header) that have text content
-  const spans = Array.from(element.querySelectorAll('span'));
-  spans.forEach((span) => {
-    // Add span if not a descendant of h2 and has text
-    if ((!h2 || !h2.contains(span)) && span.textContent.trim() !== '') {
-      contentElements.push(span);
-    }
-  });
-  // If nothing but h2 was found, try for any text-rich div
-  if (contentElements.length === 1) {
-    const richDiv = Array.from(element.querySelectorAll('div')).find(div => div.textContent.trim() && (!h2 || !div.contains(h2)));
-    if (richDiv && !contentElements.includes(richDiv)) {
-      contentElements.push(richDiv);
-    }
+  // Prepare the table rows
+  const cells = [];
+  // Header row: block name
+  cells.push(['Hero (hero28)']);
+  // Row 2: Background Image (none present in this HTML, so blank)
+  cells.push(['']);
+  // Row 3: Title, subheading, etc.
+  // Try to gather heading and paragraph from the structure
+  const content = [];
+  // Look for heading (could be h1, h2, etc; here it's h2)
+  const heading = element.querySelector('h1, h2, h3, h4, h5, h6');
+  if (heading) content.push(heading);
+  // Try to find a paragraph/description: the innermost span with text that's not the heading
+  let paraText = '';
+  // Look for spans inside the box, but skip the heading span if present
+  const allSpans = Array.from(element.querySelectorAll('span[data-skyui-core*="Text"], span[data-skyui-core*="Markdown"]'));
+  let paraSpan = null;
+  if (heading) {
+    // If heading contains a span, skip that
+    paraSpan = allSpans.find(sp => !heading.contains(sp));
+  } else {
+    paraSpan = allSpans[0];
   }
-
-  // Final content row with all content
-  const contentRow = [contentElements];
-
-  // Build table
-  const cells = [headerRow, imageRow, contentRow];
+  if (paraSpan) {
+    // Wrap it in a <p> (paragraph)
+    const para = document.createElement('p');
+    para.textContent = paraSpan.textContent;
+    content.push(para);
+  }
+  cells.push([content]);
+  // Create and replace
   const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element with the table
   element.replaceWith(table);
 }

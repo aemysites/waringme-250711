@@ -1,40 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row as required by spec
+  // Header row: exactly as specified
   const headerRow = ['Hero (hero39)'];
 
-  // Second row: Background image cell (none in provided HTML)
-  const bgRow = [''];
+  // Background image row: not present in this HTML, so empty cell
+  const backgroundRow = [''];
 
-  // Third row: Main content (heading + subheading/paragraph)
-  // Find heading
-  const heading = element.querySelector('h2');
-  // Find paragraph/description text
-  let description = null;
-  // Look for a text container with a span inside (as in provided HTML)
-  const descContainer = element.querySelector('[data-skyui-core="Text@11.8.0"].jVKIid');
-  if (descContainer) {
-    description = descContainer;
+  // Extract heading/title
+  // Find the first h2 or h1 in the element (should be the prominent title)
+  const heading = element.querySelector('h1, h2, h3, h4, h5, h6');
+
+  // Extract subheading/paragraph: the subheadline is visually styled as a paragraph but is the next text block
+  // Look for possible subheading/paragraph, not the heading
+  let subheading = null;
+  if (heading) {
+    // Look for a sibling or nested paragraph after the heading
+    // Try to find the next text__TextElement-sc-qf7y4e-0 after the heading
+    let current = heading.parentElement;
+    // Traverse down if the heading is wrapped inside multiple spans/divs
+    while (current && current !== element && current.querySelector('.text__TextElement-sc-qf7y4e-0.jVKIid')) {
+      current = current.querySelector('.text__TextElement-sc-qf7y4e-0.jVKIid');
+      break;
+    }
+    if (current && current.classList && current.classList.contains('text__TextElement-sc-qf7y4e-0') && current.classList.contains('jVKIid')) {
+      subheading = current;
+    } else {
+      // Try generic search as fallback
+      subheading = element.querySelector('.text__TextElement-sc-qf7y4e-0.jVKIid');
+    }
+    // Make sure subheading is not the heading itself
+    if (subheading === heading) subheading = null;
+  } else {
+    // Fallback: find first text__TextElement-sc-qf7y4e-0.jVKIid
+    subheading = element.querySelector('.text__TextElement-sc-qf7y4e-0.jVKIid');
   }
 
-  // Build the content cell
-  // Preserve existing elements and line breaks if both heading and description present
+  // Compose the content cell
   const contentCell = [];
   if (heading) contentCell.push(heading);
-  if (description) {
-    // Add a <br> if both heading and description are present
-    if (heading) contentCell.push(document.createElement('br'));
-    contentCell.push(description);
-  }
+  if (subheading) contentCell.push(subheading);
 
-  // Compose the rows as per spec: header, bg image, content
-  const rows = [
-    headerRow,
-    bgRow,
-    [contentCell]
-  ];
-
-  // Create and replace
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Table cells: header, background, content
+  const cells = [headerRow, backgroundRow, [contentCell]];
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

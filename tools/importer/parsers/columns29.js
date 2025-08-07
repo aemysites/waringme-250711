@@ -1,23 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the list of columns (li elements)
-  const ul = element.querySelector('ul');
-  let items = [];
-  if (ul) {
-    items = Array.from(ul.children);
-  }
+  // According to the example, header row must be a single cell
+  // and subsequent row must have one cell per column
 
-  // For each li, extract the main content wrapper (Box) or fallback to li if missing
-  const cols = items.map(li => {
-    const box = li.querySelector('div[data-skyui-core^="Box"]');
-    return box || li;
+  // Find the UL containing the column LI elements
+  const ul = element.querySelector('ul');
+  if (!ul) return;
+  const lis = Array.from(ul.children);
+
+  // For each LI, find the innermost content wrapper for the column
+  const columns = lis.map((li) => {
+    let content = li.querySelector('.grid__Grid-sc-ysk8de-0');
+    return content || li;
   });
 
-  // Ensure we produce a table with a single header cell spanning all columns
-  if (cols.length > 0) {
-    const headerRow = ['Columns (columns29)']; // single cell header row
-    const rows = [headerRow, cols]; // second row is array of columns (one cell per column)
-    const table = WebImporter.DOMUtils.createTable(rows, document);
-    element.replaceWith(table);
-  }
+  // Construct the table: header row (one cell), then columns row
+  const tableRows = [];
+  tableRows.push(['Columns (columns29)']); // Header row: must be ONE cell
+  tableRows.push(columns); // Columns row: one cell per column
+
+  const table = WebImporter.DOMUtils.createTable(tableRows, document);
+  element.replaceWith(table);
 }

@@ -1,67 +1,72 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Build the header row exactly as in the example
-  const headerRow = ['Cards (cards41)'];
-  const cells = [headerRow];
-
-  // Find all product cards within the element
-  const cardSelector = '[data-test-id^="product-card-"]';
-  const productCards = element.querySelectorAll(cardSelector);
-
-  productCards.forEach(card => {
-    // --- IMAGE/COVER ---
-    // Use the background-image div as the card image cell
-    let imageCell = card.querySelector('[data-test-id="background-image"]');
-
-    // --- CONTENT ---
-    // Find the content container within the card
-    const contentDiv = card.querySelector('.sc-faxByu');
-    const contentCellParts = [];
-
-    if (contentDiv) {
-      // Find and append the heading(s)
-      const h3 = contentDiv.querySelector('h3');
-      if (h3) {
-        // Overline (if present)
-        const overSpan = h3.querySelector('[data-test-id="overline-text"]');
-        if (overSpan) {
-          const overDiv = document.createElement('div');
-          overDiv.appendChild(overSpan);
-          contentCellParts.push(overDiv);
-        }
-        // Main title (largest span, typically last)
-        const titleSpan = h3.querySelector('span:last-child');
-        if (titleSpan) {
-          const strong = document.createElement('strong');
-          strong.appendChild(titleSpan);
-          contentCellParts.push(strong);
-        }
-      }
-      // Description
-      const descSpan = contentDiv.querySelector('span[data-skyui-core^="Markdown"]');
-      if (descSpan) {
-        const p = document.createElement('p');
-        p.appendChild(descSpan);
-        contentCellParts.push(p);
-      }
-      // CTA button
-      const ctaBtn = contentDiv.querySelector('a[data-skyui-core^="Button"]');
-      if (ctaBtn) {
-        contentCellParts.push(document.createElement('br'));
-        contentCellParts.push(ctaBtn);
+  // Helper to extract background-image URL from a div
+  function getBgImageUrl(div) {
+    if (!div) return null;
+    // Try computedStyle first
+    let url = '';
+    if (window.getComputedStyle) {
+      const style = window.getComputedStyle(div);
+      const bg = style && style.getPropertyValue('background-image');
+      if (bg) {
+        const match = bg.match(/url\(["']?(.*?)["']?\)/i);
+        if (match) url = match[1];
       }
     }
-    // If nothing found for content, fallback to card
-    let contentCell;
-    if (contentCellParts.length > 0) {
-      contentCell = contentCellParts;
-    } else {
-      contentCell = contentDiv || card;
+    // Fallback to inline style
+    if (!url && div.style && div.style.backgroundImage) {
+      const match = div.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/i);
+      if (match) url = match[1];
     }
-    // Push row to table
-    cells.push([imageCell, contentCell]);
+    return url || null;
+  }
+
+  // Find all cards
+  const cards = Array.from(element.querySelectorAll('[data-test-id^="product-card-"]'));
+
+  // Header row exactly as in the example
+  const rows = [['Cards (cards41)']];
+
+  cards.forEach(card => {
+    // Image: find background-image div and use as <img>
+    const bgDiv = card.querySelector('[data-test-id="background-image"]');
+    let imgEl = '';
+    const imgUrl = getBgImageUrl(bgDiv);
+    if (imgUrl) {
+      imgEl = document.createElement('img');
+      imgEl.src = imgUrl;
+      imgEl.alt = '';
+    }
+
+    // Text cell: may contain heading, description, CTA
+    const textCell = [];
+    // Heading: h3[data-test-id=section-header]
+    const heading = card.querySelector('h3[data-test-id="section-header"]');
+    if (heading) {
+      // Use referenced heading and its children (spans for overline/title)
+      textCell.push(heading);
+    }
+    // Description
+    const description = card.querySelector('[data-skyui-core="Markdown@11.8.0"]');
+    if (description && description.textContent.trim()) {
+      // Wrap in a <p> if not already a <p> or block
+      let p = document.createElement('p');
+      p.textContent = description.textContent.trim();
+      textCell.push(p);
+    }
+    // CTA button (first <a> inside the card)
+    const cta = card.querySelector('a[data-skyui-core^="Button"]');
+    if (cta) {
+      textCell.push(cta);
+    }
+
+    rows.push([
+      imgEl,
+      textCell.length > 1 ? textCell : (textCell[0] || '')
+    ]);
   });
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create table and replace
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

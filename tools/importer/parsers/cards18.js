@@ -1,64 +1,75 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Prepare header row for the block
-  const headerRow = ['Cards (cards18)'];
-  const cells = [headerRow];
-
-  // Helper: Compose text cell for cards
-  function composeTextCell(titleElem, descElem) {
-    const textElem = document.createElement('div');
-    if (titleElem) {
-      // Make title bold (as per example, normally heading; here keep span, but bold)
-      const title = document.createElement('strong');
-      title.append(...Array.from(titleElem.childNodes));
-      textElem.appendChild(title);
+  // Helper to extract the main card from the big a at the top
+  function extractCardMain(a) {
+    // Find the main image
+    const img = a.querySelector('img');
+    // The structure is: two spans inside the Flex div with class dWHTZf
+    const flex = a.querySelector('.dWHTZf');
+    let title = null, desc = null;
+    if (flex) {
+      const spans = flex.querySelectorAll('span');
+      if (spans.length > 0) title = spans[0];
+      if (spans.length > 1) desc = spans[1];
     }
-    if (descElem) {
-      if (textElem.childNodes.length > 0) textElem.appendChild(document.createElement('br'));
-      textElem.append(...Array.from(descElem.childNodes));
+    // Assemble text: title as <strong>, description as <div>
+    const textDiv = document.createElement('div');
+    if (title) {
+      const strong = document.createElement('strong');
+      strong.textContent = title.textContent;
+      textDiv.appendChild(strong);
     }
-    return textElem;
+    if (desc) {
+      const descDiv = document.createElement('div');
+      descDiv.textContent = desc.textContent;
+      textDiv.appendChild(descDiv);
+    }
+    return [img, textDiv];
   }
 
-  // Find the main (large) card, the first <a> at the top
-  const mainCardLink = element.querySelector(':scope > a');
-  if (mainCardLink) {
-    // Find the image (1st img in main card)
-    const mainImg = mainCardLink.querySelector('img');
-    // Find title and desc (the two spans in the content area)
-    const mainTextBox = mainCardLink.querySelector('div.flex__Flex-sc-1r1ee79-0.dWHTZf');
-    let mainTitle = null, mainDesc = null;
-    if (mainTextBox) {
-      const spans = mainTextBox.querySelectorAll('span');
-      if (spans.length > 0) mainTitle = spans[0];
-      if (spans.length > 1) mainDesc = spans[1];
+  // Helper for the cards in the right column
+  function extractCardSection(a) {
+    const grid = a.querySelector('.grid__Grid-sc-ysk8de-0');
+    let img = null;
+    let title = null;
+    if (grid) {
+      img = grid.querySelector('img');
+      title = grid.querySelector('span');
     }
-    if (mainImg && (mainTitle || mainDesc)) {
-      const textCell = composeTextCell(mainTitle, mainDesc);
-      cells.push([mainImg, textCell]);
+    const textDiv = document.createElement('div');
+    if (title) {
+      const strong = document.createElement('strong');
+      strong.textContent = title.textContent;
+      textDiv.appendChild(strong);
     }
+    return [img, textDiv];
   }
 
-  // Now process the smaller cards in the side-list
-  const sideCardsWrapper = element.querySelector('div.flex__Flex-sc-1r1ee79-0.ejowPs');
-  if (sideCardsWrapper) {
-    const cardLinks = sideCardsWrapper.querySelectorAll(':scope > a');
-    cardLinks.forEach(cardLink => {
-      // In each card, get the image and the title (in a span)
-      const grid = cardLink.querySelector('div.grid__Grid-sc-ysk8de-0');
-      if (!grid) return; // skip if structure doesn't match
-      const img = grid.querySelector('img');
-      const span = grid.querySelector('span');
-      // For these cards, only a title, no desc
-      if (img && span) {
-        // Make title bold for consistency
-        const textCell = composeTextCell(span, null);
-        cells.push([img, textCell]);
+  const rows = [];
+  // Header row exactly as required
+  rows.push(['Cards (cards18)']);
+
+  // First card (large)
+  const mainA = element.querySelector(':scope > a');
+  if (mainA) {
+    const mainRow = extractCardMain(mainA);
+    if (mainRow[0] || mainRow[1].childNodes.length) {
+      rows.push(mainRow);
+    }
+  }
+  // Other cards
+  const subDiv = element.querySelector(':scope > div');
+  if (subDiv) {
+    const links = subDiv.querySelectorAll(':scope > a');
+    links.forEach((a) => {
+      const cardRow = extractCardSection(a);
+      if (cardRow[0] || cardRow[1].childNodes.length) {
+        rows.push(cardRow);
       }
     });
   }
 
-  // Create the table and replace the original element
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create and replace
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

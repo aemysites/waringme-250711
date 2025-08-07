@@ -1,50 +1,48 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row as per specification
-  const headerRow = ['Cards (cards25)'];
+  // Header row matches example format exactly
+  const cells = [['Cards (cards25)']];
 
-  // Find the card list container (ul)
-  const cardsUl = element.querySelector('ul');
-  if (!cardsUl) return;
+  // Locate card list
+  const list = element.querySelector('ul');
+  if (list) {
+    list.querySelectorAll(':scope > li').forEach((li) => {
+      // Get image: first <img> in card, referencing the real element
+      const cardImage = li.querySelector('img');
 
-  // For each card, extract image and text content semantically
-  const rows = Array.from(cardsUl.children).map((li) => {
-    const a = li.querySelector('a');
-    if (!a) return null;
-
-    // --- IMAGE CELL ---
-    // Find first img inside the card for the card's main image
-    let mainImg = a.querySelector('img');
-    let imageCell = '';
-    if (mainImg) {
-      imageCell = mainImg;
-    }
-
-    // --- TEXT CELL ---
-    // Gather all direct h3 and p inside the card for title and description
-    const cardTextContainer = document.createElement('div');
-    // Find all h3 and p inside `a`
-    a.querySelectorAll('h3, p').forEach(node => {
-      cardTextContainer.appendChild(node);
-    });
-    // Defensive: If no h3/p, fallback to other text block
-    if (!cardTextContainer.childNodes.length) {
-      // Try to find any div with text content
-      a.querySelectorAll('div').forEach(div => {
-        if (div.textContent.trim()) cardTextContainer.appendChild(div);
+      // Build text cell: gather all heading & paragraph content within the card, maintaining order & meaning
+      const textEls = [];
+      // Find all elements typically used for text in the card, in DOM order
+      li.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span').forEach((el) => {
+        // Only include if contains any trimmed text
+        if (el.textContent && el.textContent.trim().length > 0) {
+          textEls.push(el);
+        }
       });
-    }
+      // If no heading/paragraph, fallback: get text from link itself
+      if (textEls.length === 0) {
+        const cardLink = li.querySelector('a');
+        if (cardLink && cardLink.textContent.trim().length > 0) {
+          textEls.push(cardLink);
+        }
+      }
+      // Wrap textEls in a link if card is a link
+      const cardLink = li.querySelector('a');
+      let textContent;
+      if (cardLink && cardLink.href) {
+        // Use original link (not a clone), but clear children and append textEls
+        const link = cardLink;
+        // Remove all children
+        while (link.firstChild) link.removeChild(link.firstChild);
+        textEls.forEach(el => link.appendChild(el));
+        textContent = link;
+      } else {
+        textContent = textEls;
+      }
+      cells.push([cardImage, textContent]);
+    });
+  }
 
-    // Use the container if it has content
-    const textCell = cardTextContainer.childNodes.length ? cardTextContainer : '';
-
-    return [imageCell, textCell];
-  }).filter(Boolean);
-
-  // Compose table and replace
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    ...rows
-  ], document);
+  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
