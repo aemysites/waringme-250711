@@ -1,50 +1,94 @@
 {
   "templates": [
     {
-      "name": "'Entertainment Showcase'",
+      "name": "'Product Listing Page'",
       "cluster": 1,
       "pages": [
         {
-          "url": "https://www.sky.com/tv/cinema?irct=masthead-cinema",
-          "uuid": "c635e457efe6c13e4416163d59b7312e111ffb5a"
+          "url": "https://www.sky.com/glass/gen-2",
+          "uuid": "8d11902769411576556f7f0e93fccf9c7388fbe9"
         },
         {
-          "url": "https://www.sky.com/tv/sky-q",
-          "uuid": "9458f0f93ac36857920ebe3da4248e6097f64fce"
-        },
-        {
-          "url": "https://www.sky.com/tv/stream",
-          "uuid": "0c3731184242629170b7cf0e1bde32cc0e44a82e"
+          "url": "https://www.sky.com/glass/air",
+          "uuid": "ed08882b9e66cdda2583fd3f6aef1818de0f2655"
         }
       ]
     },
     {
-      "name": "'Dashboard Interface'",
+      "name": "'Product Grid Page'",
       "cluster": 2,
       "pages": [
         {
-          "url": "https://www.sky.com/watch/discovery-plus?irct=masthead-discovery",
-          "uuid": "b2c6cbed156ad13e2df9f61e49fdc5d534835b74"
+          "url": "https://www.sky.com/glass/55-inch",
+          "uuid": "c83a3bea4e150e81568642bfc8f48db26516a319"
+        },
+        {
+          "url": "https://www.sky.com/glass/43-inch",
+          "uuid": "231ca7afc86b9b9762a4d1031a7ae089d408d1fa"
+        },
+        {
+          "url": "https://www.sky.com/glass/65-inch",
+          "uuid": "23c5dc1b444c40260f591ff0966b5214d8724c46"
         }
       ]
     },
     {
-      "name": "'Media Showcase Page'",
+      "name": "'Dashboard Template'",
       "cluster": 3,
       "pages": [
         {
-          "url": "https://www.sky.com/#nav",
-          "uuid": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d"
+          "url": "https://www.sky.com/broadband/gaming",
+          "uuid": "dad807bff2eb5f4a67305696e6c021cb71d0976d"
         },
         {
-          "url": "https://www.sky.com/#footer",
-          "uuid": "17fa46e7378c0b63afb5787e770301b722c6b3cc"
+          "url": "https://www.sky.com/broadband/full-fibre-broadband",
+          "uuid": "e25f708aa58b99e2d68e48c1db877f7ce2194a12"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard Template",
+      "cluster": 4,
+      "pages": [
+        {
+          "url": "https://www.sky.com/glass",
+          "uuid": "57e984e70862dcc7447b4b38fb400642bd81f110"
+        }
+      ]
+    },
+    {
+      "name": "Promotional Landing Page",
+      "cluster": 5,
+      "pages": [
+        {
+          "url": "https://www.sky.com/boxoffice/tnt-sports",
+          "uuid": "0405cbba7e2b1a7622eeb51dc0c4ddddec5a8993"
+        }
+      ]
+    },
+    {
+      "name": "Product Showcase Page",
+      "cluster": 6,
+      "pages": [
+        {
+          "url": "https://www.sky.com/broadband/buy/stream/error",
+          "uuid": "7bfd188cf10989ff3d84d150f9231d3fadc4ccad"
+        }
+      ]
+    },
+    {
+      "name": "'Homepage'",
+      "cluster": 7,
+      "pages": [
+        {
+          "url": "https://www.sky.com/broadband",
+          "uuid": "50f739f78ae978ebf4c436ec4ee7f9c0839b41e1"
         }
       ]
     },
     {
       "name": "'Magazine Homepage'",
-      "cluster": 4,
+      "cluster": 8,
       "pages": [
         {
           "url": "https://www.sky.com",
@@ -53,32 +97,22 @@
       ]
     },
     {
-      "name": "'Portfolio Showcase'",
-      "cluster": 5,
+      "name": "Dashboard Overview",
+      "cluster": 9,
       "pages": [
         {
-          "url": "https://www.sky.com/watch",
-          "uuid": "e1df15d2a6d56e34089fa94c6d0e70a6e1465478"
+          "url": "https://www.sky.com/deals",
+          "uuid": "fac472fb978b80638907e174bfac88c53fa59c76"
         }
       ]
     },
     {
-      "name": "'Entertainment Hub'",
-      "cluster": 6,
+      "name": "Sports Hub Landing Page",
+      "cluster": 10,
       "pages": [
         {
-          "url": "https://www.sky.com/tv/sports?irct=masthead-sports",
-          "uuid": "898600c179689bfd389b111c1d94e47b88f0108a"
-        }
-      ]
-    },
-    {
-      "name": "'E-commerce Product Showcase'",
-      "cluster": 7,
-      "pages": [
-        {
-          "url": "https://www.sky.com/glass",
-          "uuid": "57e984e70862dcc7447b4b38fb400642bd81f110"
+          "url": "https://www.sky.com/boxoffice",
+          "uuid": "6cc8f2006ff4f1491562b62f596ec4acf5904042"
         }
       ]
     }
