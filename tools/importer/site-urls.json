@@ -1,11 +1,383 @@
 {
-  "originUrl": "http://www.sky.com",
+  "originUrl": "https://www.sky.com",
   "urls": [
     {
-      "url": "http://www.sky.com/index.html",
+      "url": "https://www.sky.com",
       "source": "MANUAL",
       "targetPath": "/",
-      "id": "f7097e56f51e573ac0908007f5d3e5add706fbee"
+      "id": "4df0db23e0b454b9297e7ade546a94c4f6f3b910"
+    },
+    {
+      "url": "https://www.sky.com/boxoffice",
+      "source": "MANUAL",
+      "targetPath": "/boxoffice",
+      "id": "6cc8f2006ff4f1491562b62f596ec4acf5904042"
+    },
+    {
+      "url": "https://www.sky.com/boxoffice/tnt-sports",
+      "source": "MANUAL",
+      "targetPath": "/boxoffice/tnt-sports",
+      "id": "0405cbba7e2b1a7622eeb51dc0c4ddddec5a8993"
+    },
+    {
+      "url": "https://www.sky.com/broadband",
+      "source": "MANUAL",
+      "targetPath": "/broadband",
+      "id": "50f739f78ae978ebf4c436ec4ee7f9c0839b41e1"
+    },
+    {
+      "url": "https://www.sky.com/broadband/buy/stream/error",
+      "source": "MANUAL",
+      "targetPath": "/broadband/buy/stream/error",
+      "id": "7bfd188cf10989ff3d84d150f9231d3fadc4ccad"
+    },
+    {
+      "url": "https://www.sky.com/broadband/full-fibre-broadband",
+      "source": "MANUAL",
+      "targetPath": "/broadband/full-fibre-broadband",
+      "id": "e25f708aa58b99e2d68e48c1db877f7ce2194a12"
+    },
+    {
+      "url": "https://www.sky.com/broadband/gaming",
+      "source": "MANUAL",
+      "targetPath": "/broadband/gaming",
+      "id": "dad807bff2eb5f4a67305696e6c021cb71d0976d"
+    },
+    {
+      "url": "https://www.sky.com/business/help/articles/direct-debit-guarantee-uk",
+      "source": "MANUAL",
+      "targetPath": "/business/help/articles/direct-debit-guarantee-uk",
+      "id": "d2b79c23c6aeb5442bb95ac082dc6cbd1204abad"
+    },
+    {
+      "url": "https://www.sky.com/business/help/home",
+      "source": "MANUAL",
+      "targetPath": "/business/help/home",
+      "id": "760af537d4f27d8bed77ad8a6b502192800bd944"
+    },
+    {
+      "url": "https://www.sky.com/deals",
+      "source": "MANUAL",
+      "targetPath": "/deals",
+      "id": "fac472fb978b80638907e174bfac88c53fa59c76"
+    },
+    {
+      "url": "https://www.sky.com/glass",
+      "source": "MANUAL",
+      "targetPath": "/glass",
+      "id": "57e984e70862dcc7447b4b38fb400642bd81f110"
+    },
+    {
+      "url": "https://www.sky.com/glass/43-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/43-inch",
+      "id": "231ca7afc86b9b9762a4d1031a7ae089d408d1fa"
+    },
+    {
+      "url": "https://www.sky.com/glass/55-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/55-inch",
+      "id": "c83a3bea4e150e81568642bfc8f48db26516a319"
+    },
+    {
+      "url": "https://www.sky.com/glass/65-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/65-inch",
+      "id": "23c5dc1b444c40260f591ff0966b5214d8724c46"
+    },
+    {
+      "url": "https://www.sky.com/glass/air",
+      "source": "MANUAL",
+      "targetPath": "/glass/air",
+      "id": "ed08882b9e66cdda2583fd3f6aef1818de0f2655"
+    },
+    {
+      "url": "https://www.sky.com/glass/gen-2",
+      "source": "MANUAL",
+      "targetPath": "/glass/gen-2",
+      "id": "8d11902769411576556f7f0e93fccf9c7388fbe9"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/404-errors",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/404-errors",
+      "id": "282bbf1e0a920bbe284d6e23f6acfdd932f02965"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/4g-calling",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/4g-calling",
+      "id": "b3e79513cdd56ddfeab66277ccae92981f3094d1"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/9-digits-on-screen",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/9-digits-on-screen",
+      "id": "501d2b6bf69517322c21ed0d9f7739451ba83a42"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/about-buy-and-keep-rentals",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/about-buy-and-keep-rentals",
+      "id": "f9f6dbb4852dec284e2666b28192f83be182cc17"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/about-internet-calls",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/about-internet-calls",
+      "id": "2c4e2978f46f8e4ccfda53cc85ef571a5d1c4f39"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/access-sports-uhd-not-connected",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/access-sports-uhd-not-connected",
+      "id": "0cdb286487f5cfc670b7cf146c740b5f5d338cc7"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/accessibility-information-sky-mobile-broadband-and-talk-customers",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/accessibility-information-sky-mobile-broadband-and-talk-customers",
+      "id": "974bdf2aaf63a3bdbb4004dfbf25966e684effcf"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/accessibility-remotes",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/accessibility-remotes",
+      "id": "51b543a6afff7f3a631ca5f1020acdfdd55745b5"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/accessibility-settings-sky-glass",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/accessibility-settings-sky-glass",
+      "id": "795bf525b6d78db212923e751ad1382ebde2ee69"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/accessibility-sky-mobile",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/accessibility-sky-mobile",
+      "id": "7b2457bb1a8f5244f9691e41b51591073ecec86c"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/ad-skipping-sky-glass",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/ad-skipping-sky-glass",
+      "id": "b274a3f8bf037a0004e8ee0ce8526aef60f658c2"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/adding-channels-from-other-pay-tv-providers",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/adding-channels-from-other-pay-tv-providers",
+      "id": "6b205c9b81304e136a740e36cfb92764ad8b33b2"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/alternative-dispute-resolution-financial-ombudsman-service",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/alternative-dispute-resolution-financial-ombudsman-service",
+      "id": "fe0c16d208767de913011fee2bd9f52a1b20a0c1"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/alternative-format-correspondence",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/alternative-format-correspondence",
+      "id": "f1eb3b9ea25e4f8a76b9fd627d8e1e361b83d95a"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/app-desktop-lookup",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/app-desktop-lookup",
+      "id": "1a75cf7e1471a73d5c517490a77dc6e3700aabe6"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apple-in-box-accessories",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apple-in-box-accessories",
+      "id": "a958fe9be1f8c27159b187526d03ce858f8b2b7c"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass",
+      "id": "fa46ae9cb1af6f6662175786268aa7a4181e3adb"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-bbc-iplayer",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-bbc-iplayer",
+      "id": "ccba9035f76d2d7ea9637a6227425c457cbd51a5"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-disney-plus",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-disney-plus",
+      "id": "e858be745c733239b7ac5a195a3df1e8dd92427a"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-itvx",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-itvx",
+      "id": "c3a1be72e8ba60ea35c206424782ec4369020da3"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-my-5",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-my-5",
+      "id": "143a5ba9a60147dd90ef7001b37422589a8654b5"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-netflix",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-netflix",
+      "id": "6795cd21ea79fae1757f193c06730e5a5598345f"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-play-works",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-play-works",
+      "id": "2c733fd85ab236e631390418e94260b77fd78a2b"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-prime-video",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-prime-video",
+      "id": "ccc1a969564e2631ee171fc017eddc2a85713662"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-roku",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-roku",
+      "id": "9e6810c1e2a24d010d4233b71c7bd1a335554225"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-roxi",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-roxi",
+      "id": "f5c6664fe809f3db6fdae46506548b548c1b1ef8"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-sky-news",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-sky-news",
+      "id": "36cac890cf703c06f84d0432a3ef468a81ab99c1"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-spotify",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-spotify",
+      "id": "394f554f7f22074cf1393c4704f6944141e6c659"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-weather",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-weather",
+      "id": "29dd72483f7dd6b479c805565b44f5168bc8b482"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/apps-on-sky-q-and-glass-youtube",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/apps-on-sky-q-and-glass-youtube",
+      "id": "e8c64223349e9b0f89b0b216b6153d802f885f14"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/auto-compensation",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/auto-compensation",
+      "id": "0a7b757cbe9270e8a160e099b769c077acad3e4e"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/be-my-eyes-roi",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/be-my-eyes-roi",
+      "id": "239cea6735bc8775d799849da120b71f7ab70fbc"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/billing-and-debt-management",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/billing-and-debt-management",
+      "id": "634fb52d470b3793ebf6f7eb0b5648fdccbb5d07"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/bills-and-payments-management",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/bills-and-payments-management",
+      "id": "70755b5b7a7875823ce247b0966fabc7a30dd28a"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/bills-and-payments-sky-glass",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/bills-and-payments-sky-glass",
+      "id": "2b8fd2a5acc160303d31cda2c0b4942fd1ad0997"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/bills-and-payments-sky-glass-payments",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/bills-and-payments-sky-glass-payments",
+      "id": "f194cae8f943bbcd84de26588743e3b368b62f8d"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/blue-light-pulsing-on-box",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/blue-light-pulsing-on-box",
+      "id": "ca5f4086be9e3d733f16aa40c18aa428149ac041"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/broadband-boost",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/broadband-boost",
+      "id": "81a942fddcb751bc8d977d7cb895c73fb888b82d"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/broadband-diagnostic-start-t2",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/broadband-diagnostic-start-t2",
+      "id": "09821676bd1f176368fb690c3e7b3d9ca773f060"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/broadband-speeds-explained",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/broadband-speeds-explained",
+      "id": "3ab740f9aef57f599a1b5afdf52dd7e236e4febe"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/broadband-tips-when-working-from-home",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/broadband-tips-when-working-from-home",
+      "id": "06d91cc212ccdf4ef7e24a779ae2eb80ac3d4e23"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/buy-a-sim-only-plan-from-sky-mobile",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/buy-a-sim-only-plan-from-sky-mobile",
+      "id": "fb5ab698b359cd0e65e15444b235bc8e5d0bf998"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/buy-a-sky-mobile-sim-free-phone-or-tablet",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/buy-a-sky-mobile-sim-free-phone-or-tablet",
+      "id": "6febbc796d409ea99bf0e660537e45716883523f"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/buying-sky-glass-second-hand",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/buying-sky-glass-second-hand",
+      "id": "c8af99d4f30ce90ae8cab8560c38f95ebe99d733"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/call-to-upgrade-downloading-on-demand",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/call-to-upgrade-downloading-on-demand",
+      "id": "7dc50754d1fadd53099882e39aeac2701a344614"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/caller-identity",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/caller-identity",
+      "id": "ed3dfc2bcd5b2d00d34124cc9eefc17d850faea2"
+    },
+    {
+      "url": "https://www.sky.com/help/articles/calls-and-texts-to-international-numbers",
+      "source": "MANUAL",
+      "targetPath": "/help/articles/calls-and-texts-to-international-numbers",
+      "id": "afc77504aff917220c6907ad432e942e26bec4c2"
     }
   ],
   "crawlOptions": {
