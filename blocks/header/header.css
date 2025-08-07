@@ -289,7 +289,7 @@ header nav .nav-sections ul>li>ul>li {
     position: absolute;
     top: 50%;
     right: 8px;
-    transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(135deg);
     width: 6px;
     height: 6px;
     border: 1px solid #333;
@@ -300,7 +300,7 @@ header nav .nav-sections ul>li>ul>li {
 
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
     top: 50%;
-    transform: translateY(-50%) rotate(225deg);
+    transform: translateY(-50%) rotate(315deg);
   }
 
   header nav .nav-sections .nav-drop[aria-expanded='true'] > a {
@@ -439,7 +439,7 @@ header nav .nav-tools {
   grid-area: tools;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   margin-left: auto;
   visibility: visible;
 }
@@ -447,16 +447,62 @@ header nav .nav-tools {
 header nav .nav-tools-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
-header nav .nav-search,
+header nav .nav-search {
+  display: flex;
+  align-items: center;
+}
+
+header nav .search-toggle {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav .search-toggle:hover {
+  background-color: rgba(0, 161, 222, 0.05);
+}
+
+header nav .search-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: #333;
+}
+
+header nav .search-field {
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  width: 200px;
+  transition: all 0.2s ease;
+}
+
+header nav .search-field:focus {
+  outline: none;
+  border-color: #00a1de;
+  background-color: #fff;
+}
+
 header nav .nav-alerts {
   display: flex;
   align-items: center;
 }
 
-header nav .search-toggle,
 header nav .alerts-toggle {
   background: none;
   border: none;
@@ -467,45 +513,80 @@ header nav .alerts-toggle {
   transition: background-color 0.2s ease;
 }
 
-header nav .search-toggle:hover,
 header nav .alerts-toggle:hover {
   background-color: rgba(0, 161, 222, 0.05);
 }
 
 header nav .nav-signin .button-primary {
-  background-color: transparent;
-  color: #00a1de;
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  line-height: 1;
+  background-color: transparent !important;
+  color: #333 !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  line-height: 1 !important;
 }
 
 header nav .nav-signin .button-primary:hover {
-  background-color: rgba(0, 161, 222, 0.05);
+  color: #00a1de !important;
+  background-color: rgba(0, 161, 222, 0.05) !important;
 }
 
 /* Nav tools dropdowns */
 header nav .nav-tools .nav-drop {
   position: relative;
+  padding-right: 16px;
+  cursor: pointer;
+  display: inline-block;
+  flex: 0 1 auto;
+}
+
+header nav .nav-tools .nav-drop::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%) rotate(135deg);
+  width: 6px;
+  height: 6px;
+  border: 1px solid #333;
+  border-radius: 0 1px 0 0;
+  border-width: 1px 1px 0 0;
+  transition: transform 0.2s ease;
+}
+
+header nav .nav-tools .nav-drop[aria-expanded='true']::after {
+  top: 50%;
+  transform: translateY(-50%) rotate(315deg);
 }
 
 header nav .nav-tools .nav-drop > a {
-  color: #333;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  color: #333 !important;
+  text-decoration: none !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+  display: inline-block !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  background-color: transparent !important;
 }
 
 header nav .nav-tools .nav-drop > a:hover {
-  background-color: rgba(0, 161, 222, 0.05);
+  color: #00a1de !important;
+  background-color: rgba(0, 161, 222, 0.05) !important;
+}
+
+header nav .nav-tools .nav-drop[aria-expanded='true'] > a {
+  border: 1px solid #00a1de !important;
+  background-color: rgba(0, 161, 222, 0.05) !important;
 }
 
 header nav .nav-tools .nav-drop[aria-expanded='true'] > ul {
