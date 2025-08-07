@@ -1,53 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Table header must match the example exactly
-  const cells = [['Cards (cards17)']];
+  // Build the cards block table
+  const cells = [
+    ['Cards (cards17)'],
+  ];
 
-  // Find the root <ul> containing cards
+  // Find each card
   const ul = element.querySelector('ul');
-  if (!ul) return;
-
-  // For each card <li>
-  ul.querySelectorAll(':scope > li').forEach((li) => {
-    // Card image
-    const img = li.querySelector('img');
-    
-    // Card text block: title (h3), description (p), CTA (link)
-    const h3 = li.querySelector('h3');
-    const p = li.querySelector('p');
-    const a = li.querySelector('a');
-
-    // Compose the text block as an array
-    const textBlock = [];
-    if (h3 && h3.textContent.trim()) {
-      const heading = document.createElement('strong');
-      if (a && a.href) {
-        const link = document.createElement('a');
-        link.href = a.href;
-        link.textContent = h3.textContent.trim();
-        heading.appendChild(link);
+  if (ul) {
+    const lis = ul.querySelectorAll(':scope > li');
+    lis.forEach((li) => {
+      // First image
+      const img = li.querySelector('img');
+      // All text ps in the card, expected: first p is title, second p is description
+      const ps = li.querySelectorAll('p');
+      let textCell;
+      if (ps.length === 0) {
+        textCell = '';
       } else {
-        heading.textContent = h3.textContent.trim();
+        // Title: bold (strong)
+        const strong = document.createElement('strong');
+        strong.textContent = ps[0].textContent;
+        // Description: other ps (if any), separated by <br>
+        const descEls = [];
+        for (let i = 1; i < ps.length; i++) {
+          // Insert a <br> before each new p
+          descEls.push(document.createElement('br'));
+          descEls.push(ps[i]);
+        }
+        textCell = [strong, ...descEls];
       }
-      textBlock.push(heading);
-    }
-    // If description exists (non-empty p)
-    if (p && p.textContent.trim()) {
-      // Add line break between title and description if needed
-      if (textBlock.length > 0) {
-        textBlock.push(document.createElement('br'));
-      }
-      textBlock.push(document.createTextNode(p.textContent.trim()));
-    }
+      cells.push([img, textCell]);
+    });
+  }
 
-    // Add the card row to the table
-    cells.push([
-      img || '',
-      textBlock.length === 1 ? textBlock[0] : textBlock
-    ]);
-  });
-
-  // Create the block table and replace the original element
+  // Create and replace
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

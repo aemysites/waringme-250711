@@ -1,24 +1,28 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // According to the example, header row must be a single cell
-  // and subsequent row must have one cell per column
+  // The block expects a single table with header 'Columns (columns29)',
+  // and one row with as many columns as there are swatches.
+  // Each swatch is a direct child of the inner Flex container, identified by data-test-id="radial-swatch-active" or "radial-swatch".
 
-  // Find the UL containing the column LI elements
-  const ul = element.querySelector('ul');
-  if (!ul) return;
-  const lis = Array.from(ul.children);
+  // Find the container holding the swatches (the first direct child Flex of the main block)
+  const innerFlex = element.querySelector(':scope > .flex__Flex-sc-1r1ee79-0');
+  // If not found, just use the passed element (edge case safety)
+  const swatchParent = innerFlex || element;
 
-  // For each LI, find the innermost content wrapper for the column
-  const columns = lis.map((li) => {
-    let content = li.querySelector('.grid__Grid-sc-ysk8de-0');
-    return content || li;
-  });
+  // Get all swatch elements in order - both active and inactive
+  const swatches = Array.from(swatchParent.querySelectorAll(':scope > [data-test-id^="radial-swatch"]'));
 
-  // Construct the table: header row (one cell), then columns row
-  const tableRows = [];
-  tableRows.push(['Columns (columns29)']); // Header row: must be ONE cell
-  tableRows.push(columns); // Columns row: one cell per column
+  // For each swatch, keep the entire swatch element as the cell content
+  // (This keeps all structure and semantics, and will render as a round colored swatch)
+  const columnsRow = swatches.map(swatch => swatch);
 
-  const table = WebImporter.DOMUtils.createTable(tableRows, document);
+  // Build the cells array for createTable
+  const cells = [
+    ['Columns (columns29)'],
+    columnsRow
+  ];
+
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+
   element.replaceWith(table);
 }

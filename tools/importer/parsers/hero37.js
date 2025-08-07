@@ -1,47 +1,56 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row as per block specification
+  // Table header as per requirements
   const headerRow = ['Hero (hero37)'];
-  // Background image row (empty in this case)
+
+  // Row for background image (none present in this HTML)
   const bgRow = [''];
 
-  // Content row: collect all heading, subheading, cta or text nodes, as per spec
-  // In the sample HTML, the hero only has a heading (h2) with a span inside
-  // We want to preserve the existing heading semantics
-  let contentElements = [];
+  // Row for main content (headline, subheading, description, CTA)
+  const contentNodes = [];
 
-  // Gather all top-level headings and content in the hero area
-  // In this HTML, the heading is in a h2 inside nested divs
-  // Per instructions, reference the existing heading element if present
-  // To be robust, we collect all heading elements (h1-h6) and paragraphs (if present)
-  const headings = element.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  if (headings.length > 0) {
-    headings.forEach(h => contentElements.push(h));
+  // Get the first flex (headline & subheading)
+  const flexDivs = element.querySelectorAll(':scope > div');
+  if (flexDivs.length > 0) {
+    const firstFlex = flexDivs[0];
+    // Get all direct span children (headline, subheading)
+    const spans = firstFlex.querySelectorAll(':scope > span');
+    spans.forEach((span) => contentNodes.push(span));
   }
-  // Optionally add paragraphs (in this HTML, there are none, but may be present in others)
-  const paragraphs = element.querySelectorAll('p');
-  if (paragraphs.length > 0) {
-    paragraphs.forEach(p => contentElements.push(p));
-  }
-  // If no headings or paragraphs found, fallback to including all children (robust for variations)
-  if (contentElements.length === 0) {
-    // If the element has only one child, just use it
-    if (element.children.length === 1) {
-      contentElements = [element.firstElementChild];
+
+  // Paragraph/description below headline
+  const textSpan = element.querySelector(':scope > span[data-test-id="subscription-block-body"]');
+  if (textSpan) {
+    // There is a <div> inside with description and strong tags
+    const innerDiv = textSpan.querySelector('div[data-skyui-core="Markdown@11.8.0"]');
+    if (innerDiv) {
+      contentNodes.push(innerDiv);
     } else {
-      // Include all child nodes
-      contentElements = Array.from(element.childNodes);
+      contentNodes.push(textSpan);
     }
   }
 
-  const contentRow = [contentElements];
+  // CTA buttons block (second flex)
+  if (flexDivs.length > 1) {
+    const ctaFlex = flexDivs[1];
+    // Primary button
+    const ctaLink = ctaFlex.querySelector('a[data-test-id="price-cta"]');
+    if (ctaLink) {
+      contentNodes.push(ctaLink);
+    }
+    // Secondary CTA ("Already have Netflix?")
+    const alreadyBtn = ctaFlex.querySelector('button[data-test-id="bullets-modal-cta"]');
+    if (alreadyBtn) {
+      contentNodes.push(alreadyBtn);
+    }
+  }
 
-  const cells = [
+  // Compose and replace
+  const table = WebImporter.DOMUtils.createTable([
     headerRow,
     bgRow,
-    contentRow,
-  ];
+    [contentNodes]
+  ], document);
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
