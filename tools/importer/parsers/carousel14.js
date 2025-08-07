@@ -1,66 +1,58 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  if (!element) return;
-  // Header row matches exactly
-  const cells = [['Carousel (carousel14)']];
+  // Table header must match example
+  const headerRow = ['Carousel (carousel14)'];
 
-  // Get all slides <li>
-  const ul = element.querySelector('ul');
-  if (!ul) return;
-  const lis = Array.from(ul.children).filter(li => li.tagName === 'LI');
+  // Find the slides container (ul)
+  const slidesContainer = element.querySelector('ul');
+  if (!slidesContainer) return;
+  const slides = slidesContainer.querySelectorAll('li');
 
-  lis.forEach(li => {
-    // Find the main image (first <img> not inside .sc-ckdEwu)
-    let imageEl = null;
-    const imgs = Array.from(li.querySelectorAll('img'));
-    imageEl = imgs.find(img => !img.closest('.sc-ckdEwu'));
+  const rows = [];
+  slides.forEach((li) => {
+    // Each li contains an a[data-test-id="carousel-card"]
+    const link = li.querySelector('a[data-test-id="carousel-card"]');
+    if (!link) return;
 
-    // Gather text content from footer, preserve all content
-    const footer = li.querySelector('[data-test-id="slide-footer-default"]');
-    let contentEls = [];
-    if (footer) {
-      // Move all direct children to ensure all text is included
-      contentEls = Array.from(footer.children);
+    // --- IMAGE extraction: Get first .sc-cCzLxZ img (main visual) ---
+    let mainImg = null;
+    const imgWrap = link.querySelector('.sc-cCzLxZ');
+    if (imgWrap) {
+      // The first img inside this is the slide visual (brand/overlay logo is second img, if present)
+      const imgs = imgWrap.querySelectorAll('img');
+      if (imgs[0]) mainImg = imgs[0];
     }
+    // Fallback: skip this slide if no main image
+    if (!mainImg) return;
 
-    // Add CTA link at the bottom if the card link is present and not already in content
-    const a = li.querySelector('a[data-test-id="carousel-card"]');
-    if (a && a.href) {
-      const alreadyHasLink = contentEls.some(node => {
-        if (node.querySelector) {
-          return node.querySelector('a');
-        }
-        return false;
-      });
-      if (!alreadyHasLink) {
-        const ctaP = document.createElement('p');
-        const ctaA = document.createElement('a');
-        ctaA.href = a.href;
-        // Use a short label from the first text node if possible
-        let label = '';
-        // Try <p> or <h3> nodes in order
-        for (const node of contentEls) {
-          if (node && node.textContent && node.textContent.trim()) {
-            label = node.textContent.trim();
-            break;
-          }
-        }
-        if (!label) label = 'Learn more';
-        ctaA.textContent = label;
-        ctaP.appendChild(ctaA);
-        contentEls.push(ctaP);
+    // --- TEXT extraction ---
+    // All content in slide-footer-default
+    const contentWrap = link.querySelector('[data-test-id^="slide-footer-default"]');
+    let contentElements = [];
+    if(contentWrap) {
+      // In markup: <p> = title, <h3> = description
+      const title = contentWrap.querySelector('p');
+      const desc = contentWrap.querySelector('h3');
+      if (title) {
+        // Use <strong> to match bold heading style (example uses heading, but not h2/h3 directly)
+        const strong = document.createElement('strong');
+        strong.textContent = title.textContent;
+        contentElements.push(strong);
+      }
+      if (desc) {
+        // Use a paragraph element for description
+        const p = document.createElement('p');
+        p.textContent = desc.textContent;
+        contentElements.push(p);
       }
     }
-
-    // Add to table if image or content exists
-    if (imageEl || contentEls.length > 0) {
-      cells.push([
-        imageEl,
-        contentEls.length > 0 ? contentEls : ''
-      ]);
-    }
+    // Compose the row: always image, text (may be empty)
+    rows.push([mainImg, contentElements.length ? contentElements : '']);
   });
 
+  if (rows.length === 0) return;
+
+  const cells = [headerRow, ...rows];
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

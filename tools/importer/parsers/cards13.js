@@ -1,73 +1,54 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
+  // Table header row
   const headerRow = ['Cards (cards13)'];
   const cells = [headerRow];
 
-  // Find the first visible tabpanel (no aria-hidden or aria-hidden="false")
-  const tabpanels = element.querySelectorAll('[role="tabpanel"]');
-  let galleryPanel = null;
-  for (const panel of tabpanels) {
-    if (!panel.hasAttribute('aria-hidden') || panel.getAttribute('aria-hidden') === 'false') {
-      galleryPanel = panel;
-      break;
-    }
-  }
-  if (!galleryPanel) {
-    element.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
-    return;
-  }
-  // Get all <li> inside the visible panel's <ul>
-  const lis = Array.from(galleryPanel.querySelectorAll('ul > li'));
-  for (const li of lis) {
-    const img = li.querySelector('img');
-    let imageCell = '';
-    let textCell = '';
-    if (img) {
-      imageCell = img;
-      const title = img.getAttribute('alt') || '';
-      let heading = null;
-      if (title) {
-        heading = document.createElement('strong');
-        heading.textContent = title;
+  // Find all tabpanel divs directly under the main element
+  const tabpanels = Array.from(element.querySelectorAll(':scope > div[role="tabpanel"]'));
+
+  tabpanels.forEach(tabpanel => {
+    // Each tabpanel contains a ul with li for the cards
+    const ul = tabpanel.querySelector('ul');
+    if (!ul) return;
+    const lis = Array.from(ul.children);
+    lis.forEach(li => {
+      // Card image
+      const img = li.querySelector('img');
+      // Card text content extraction
+      // 1. Title: from alt, as <strong>
+      // 2. Description: any non-image text content in the li
+      const textContent = [];
+      if (img && img.alt && img.alt.trim()) {
+        const strong = document.createElement('strong');
+        strong.textContent = img.alt.trim();
+        textContent.push(strong);
       }
-      // Attempt to find description text, if any, after the image
-      let description = '';
-      let foundImg = false;
-      li.childNodes.forEach((node) => {
-        if (node === img) {
-          foundImg = true;
-        } else if (foundImg) {
-          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-            description += node.textContent.trim() + ' ';
-          } else if (node.nodeType === Node.ELEMENT_NODE && node !== img && node.textContent.trim()) {
-            description += node.textContent.trim() + ' ';
-          }
+
+      // Add description if present (all non-img, non-empty text nodes)
+      let foundDescription = false;
+      Array.from(li.childNodes).forEach(node => {
+        if (node.nodeType === 3 && node.textContent.trim()) {
+          // Non-empty text node
+          foundDescription = true;
+          textContent.push(document.createElement('br'));
+          textContent.push(document.createTextNode(node.textContent.trim()));
+        } else if (node.nodeType === 1 && node.tagName !== 'IMG') {
+          foundDescription = true;
+          textContent.push(document.createElement('br'));
+          textContent.push(node);
         }
       });
-      description = description.trim();
-      // If no description found after <img>, try before <img> (some HTML may have it before)
-      if (!description) {
-        li.childNodes.forEach((node) => {
-          if (node !== img && node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-            description += node.textContent.trim() + ' ';
-          }
-        });
-        description = description.trim();
-      }
-      const fragments = [];
-      if (heading) fragments.push(heading);
-      if (description) {
-        const descP = document.createElement('p');
-        descP.textContent = description;
-        fragments.push(descP);
-      }
-      textCell = fragments.length > 1 ? fragments : (fragments[0] || '');
-    } else {
-      // If no image, use text
-      textCell = li.textContent.trim();
-    }
-    cells.push([imageCell, textCell]);
-  }
+
+      // If no description found (as in the provided HTML), just use the title
+      cells.push([
+        img,
+        textContent.length > 1 ? textContent : textContent[0]
+      ]);
+    });
+  });
+
+  // Create and replace block table
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

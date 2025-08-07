@@ -1,63 +1,75 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find all direct card containers
-  const cardEls = Array.from(element.querySelectorAll('[data-test-id="packages-cards"]'));
-  // Build rows for the cards block
-  const rows = [];
-  // Header row as per requirement and example
-  rows.push(['Cards (cards15)']);
-  // For each card, extract image(s) and text content
-  cardEls.forEach(card => {
-    // Images: all img under ul[data-test-id=packages-cards-thumbnails]
-    const thumbsUl = card.querySelector('ul[data-test-id="packages-cards-thumbnails"]');
-    let leftCell = null;
-    if (thumbsUl) {
-      const imgs = Array.from(thumbsUl.querySelectorAll('img'));
-      if (imgs.length > 1) {
-        leftCell = imgs;
-      } else if (imgs.length === 1) {
-        leftCell = imgs[0];
+  // The table rows: first row is header
+  const rows = [['Cards (cards15)']];
+
+  // Each card is a div[data-test-id="packages-cards"] at the top level
+  const cardContainers = element.querySelectorAll(':scope > div[data-test-id="packages-cards"]');
+
+  cardContainers.forEach((cardContainer) => {
+    // Each card's main content is under its :scope > div
+    const card = cardContainer.querySelector(':scope > div');
+    if (!card) return;
+
+    // --- IMAGE CELL ---
+    let imageCell = null;
+    const ul = card.querySelector('ul[data-test-id="packages-cards-thumbnails"]');
+    if (ul) {
+      const imgs = ul.querySelectorAll('img');
+      if (imgs.length === 1) {
+        imageCell = imgs[0];
+      } else if (imgs.length > 1) {
+        imageCell = Array.from(imgs);
       }
     }
-    // Right cell: build up text block from elements
-    const rightCellItems = [];
 
-    // Title: p.text__TextElement-sc-qf7y4e-0.csdvmT
+    // --- TEXT CELL ---
+    // We'll use an array so multiple elements can go in one cell
+    const textCell = [];
+
+    // Title (bold)
     const title = card.querySelector('p.text__TextElement-sc-qf7y4e-0.csdvmT');
     if (title) {
       const strong = document.createElement('strong');
-      strong.textContent = title.textContent;
-      rightCellItems.push(strong);
+      strong.textContent = title.textContent.trim();
+      textCell.push(strong);
     }
-    // Description: p.text__TextElement-sc-qf7y4e-0.kayiBF
+
+    // Description
     const desc = card.querySelector('p.text__TextElement-sc-qf7y4e-0.kayiBF');
     if (desc) {
-      if (rightCellItems.length > 0) rightCellItems.push(document.createElement('br'));
-      rightCellItems.push(desc);
+      if (textCell.length) textCell.push(document.createElement('br'));
+      textCell.push(desc);
     }
-    // Price: look for .kgnNWM inside the card
-    const price = card.querySelector('.kgnNWM');
-    if (price) {
-      rightCellItems.push(document.createElement('br'));
-      rightCellItems.push(price);
+
+    // Price (/month)
+    const priceSpan = card.querySelector('span.text__TextElement-sc-qf7y4e-0.kgnNWM');
+    if (priceSpan) {
+      if (textCell.length) textCell.push(document.createElement('br'));
+      // Replicate the whole price span including /month as it displays
+      textCell.push(priceSpan);
     }
-    // CTA: a[data-test-id="packages-cards-cta"]
+
+    // CTA link/button
     const cta = card.querySelector('a[data-test-id="packages-cards-cta"]');
     if (cta) {
-      rightCellItems.push(document.createElement('br'));
-      rightCellItems.push(cta);
+      if (textCell.length) textCell.push(document.createElement('br'));
+      textCell.push(cta);
     }
-    // Extra info: span.ijnmSx (contract note)
-    const note = card.querySelector('.ijnmSx');
-    if (note) {
-      rightCellItems.push(document.createElement('br'));
-      rightCellItems.push(note);
+
+    // Legal text, e.g. contract details
+    const legal = card.querySelector('span.text__TextElement-sc-qf7y4e-0.ijnmSx');
+    if (legal) {
+      if (textCell.length) textCell.push(document.createElement('br'));
+      textCell.push(legal);
     }
-    // Clean leading br if present
-    while(rightCellItems[0] && rightCellItems[0].tagName === 'BR') rightCellItems.shift();
-    rows.push([leftCell, rightCellItems]);
+
+    rows.push([
+      imageCell,
+      textCell
+    ]);
   });
-  // Create the block table
+
   const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

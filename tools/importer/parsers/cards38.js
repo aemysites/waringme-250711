@@ -1,38 +1,50 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row for Cards (cards38)
+  // Cards (cards38) block header
   const headerRow = ['Cards (cards38)'];
+  // Find the container that holds all card items
+  // This is the .dNBTcY flex container inside the section
+  const cardsContainer = element.querySelector('.dNBTcY');
+  if (!cardsContainer) return;
+  // Each card is a direct child with [data-test-id^="double-image-block-image-"]
+  const cardDivs = Array.from(cardsContainer.querySelectorAll('[data-test-id^="double-image-block-image-"]'));
 
-  // Check for a heading above the cards (optional row above cards)
-  const mainHeading = element.querySelector('h2');
-  let headingRow = [];
-  if (mainHeading) {
-    headingRow = [[mainHeading]];
-  }
+  // Parse each card
+  const rows = cardDivs.map(card => {
+    // First cell: the image (existing img element)
+    const img = card.querySelector('img');
 
-  // Select all direct children that are cards (images with text and CTA)
-  // Cards are the elements with data-test-id="double-image-block-image-0", etc.
-  const cardEls = Array.from(element.querySelectorAll('[data-test-id^="double-image-block-image-"]'));
-
-  // For each card, extract the image and the right text/cta cell
-  const cardRows = cardEls.map(cardEl => {
-    // Image element (must reference actual element)
-    const img = cardEl.querySelector('img');
-    // Card text wrapper (contains 2 paragraphs: heading and description)
-    const textBox = cardEl.querySelector('.box__Box-sc-1i8zs0c-0');
-    // Get CTA link (if any)
-    const link = cardEl.querySelector('a');
-    // We'll assemble cell content with references only
+    // Second cell: all text and CTA
+    // The text box contains two <p>s (title, description)
+    const textBox = card.querySelector('.bXPNVb');
     const textCellContent = [];
-    if (textBox) textCellContent.push(textBox);
-    if (link) textCellContent.push(link);
+    if (textBox) {
+      const ps = textBox.querySelectorAll('p');
+      if (ps[0]) {
+        // Title as strong
+        const strong = document.createElement('strong');
+        strong.textContent = ps[0].textContent;
+        textCellContent.push(strong);
+      }
+      if (ps[1]) {
+        textCellContent.push(document.createElement('br'));
+        textCellContent.push(ps[1]);
+      }
+    }
+    // CTA: the a.link__Link-sc-up7frj-0 ("Upgrade")
+    const cta = card.querySelector('a.link__Link-sc-up7frj-0');
+    if (cta) {
+      textCellContent.push(document.createElement('br'));
+      textCellContent.push(cta);
+    }
+
     return [img, textCellContent];
   });
 
-  // Build cells: header, optional heading, cards
-  const cells = [headerRow].concat(headingRow, cardRows);
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    ...rows
+  ], document);
 
-  // Create the table and replace original element
-  const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

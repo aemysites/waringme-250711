@@ -1,46 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row for the table, exact as per requirements
+  // Header row: must match exactly as specified
   const headerRow = ['Columns (columns17)'];
 
-  // Find grid container: the immediate container for columns
-  // It's the .grid__Grid-sc-ysk8de-0 element
-  const grid = element.querySelector('.grid__Grid-sc-ysk8de-0');
-  if (!grid) return;
+  // Find the grid that has the two columns
+  const gridDiv = element.querySelector('.grid__Grid-sc-ysk8de-0');
+  if (!gridDiv) return;
 
-  // Two main columns: left (content) and right (image)
-  // Find the left column: .box__Box-sc-1i8zs0c-0.hFTtFW
-  const leftColContainer = grid.querySelector('.box__Box-sc-1i8zs0c-0.hFTtFW');
-  // Find the right column: the only <img> under grid
-  const rightImg = grid.querySelector('img');
+  // The grid has two children: left (instructions & ctas), right (image)
+  // Get all immediate children (divs and img)
+  const columns = Array.from(gridDiv.children);
+  if (columns.length < 2) return;
 
-  // Collect left column content in order: h2, markdown, ctas
-  const leftContent = [];
-  if (leftColContainer) {
-    // Heading h2 (How to watch)
-    const h2 = leftColContainer.querySelector('h2');
-    if (h2) leftContent.push(h2);
-    // The markdown block (Sky Glass, Sky Stream, Sky Q sections)
-    const markdown = leftColContainer.querySelector('[data-skyui-core="Markdown@11.7.1"]');
-    if (markdown) leftContent.push(markdown);
-    // CTA buttons container
-    const ctaContainer = leftColContainer.querySelector('[data-test-id="show.how-to-watch.ctas"]');
-    if (ctaContainer) {
-      // Add all children (buttons) of the CTA container
-      Array.from(ctaContainer.children).forEach(child => leftContent.push(child));
-    }
+  // FIRST COLUMN: instructions + CTAs
+  const leftDiv = columns[0];
+  let leftCellContent = [];
+  if (leftDiv) {
+    // Get the container with h2 and the instructions (first flex)
+    const instructionContainer = leftDiv.querySelector('.flex__Flex-sc-1r1ee79-0.dBIWYo');
+    if (instructionContainer) leftCellContent.push(instructionContainer);
+    // Get the CTAs (second flex)
+    const ctaContainer = leftDiv.querySelector('.flex__Flex-sc-1r1ee79-0.hJtFpA');
+    if (ctaContainer) leftCellContent.push(ctaContainer);
   }
 
-  // Right content is just the image
-  const rightContent = rightImg ? [rightImg] : [];
+  // SECOND COLUMN: image
+  // Usually an <img> as the second child
+  let rightCellContent = columns[1] ?? null;
 
-  // Compose the cells array to match 2 columns
-  const cells = [
+  // Defensive: if the right column is not an <img>, check for an image inside
+  if (rightCellContent && rightCellContent.tagName !== 'IMG') {
+    const img = rightCellContent.querySelector('img');
+    if (img) rightCellContent = img;
+  }
+
+  // Assemble table row
+  const row = [leftCellContent, rightCellContent];
+
+  const table = WebImporter.DOMUtils.createTable([
     headerRow,
-    [leftContent, rightContent]
-  ];
+    row
+  ], document);
 
-  // Create and replace with the block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(block);
+  element.replaceWith(table);
 }

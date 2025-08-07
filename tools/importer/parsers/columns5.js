@@ -1,29 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the image block (left column)
-  const leftCol = element.querySelector('[data-test-id="upsell-main-image"]');
-  // Find the right content block (right column)
-  // This is the flex container next to the image
-  let rightCol = null;
-  const flexChildren = Array.from(element.querySelectorAll(':scope > div'));
-  if (flexChildren.length === 2) {
-    // The second child is the content
-    rightCol = flexChildren[1];
-  } else {
-    // fallback: try to find by class
-    rightCol = element.querySelector('.sc-fhrDCu, [data-test-id="flex-container"]:not([data-test-id="upsell-main-image"])');
+  // Header row as in the example (must match exactly)
+  const headerRow = ['Columns (columns5)'];
+
+  // Left (first) column: the main image
+  let leftCell = document.createElement('div');
+  const mainImgDiv = element.querySelector('[data-test-id="upsell-main-image"]');
+  if (mainImgDiv) {
+    leftCell = mainImgDiv;
   }
 
-  // Defensive: if any are missing, just use empty divs
-  const leftCell = leftCol || document.createElement('div');
-  const rightCell = rightCol || document.createElement('div');
+  // Right (second) column: All content that is NOT the main image div, but is in the same flex container as the image
+  let rightCell = document.createElement('div');
+  const flexContainer = element.querySelector('[data-test-id="flex-container"]');
+  if (flexContainer) {
+    // Get all children except the main image div
+    const allDivs = Array.from(flexContainer.children);
+    const nonImageDivs = allDivs.filter(child => child !== mainImgDiv);
+    // Append all non-image content to a single container
+    if (nonImageDivs.length > 0) {
+      rightCell = document.createElement('div');
+      nonImageDivs.forEach(div => rightCell.appendChild(div));
+    }
+  }
 
-  // Table header as in requirements
-  const cells = [
-    ['Columns (columns5)'],
+  // If nothing found, fallback to original element
+  if (!mainImgDiv || rightCell.childNodes.length === 0) {
+    rightCell = element;
+  }
+
+  // Compose cells for the table block
+  const tableRows = [
+    headerRow,
     [leftCell, rightCell]
   ];
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  // Create the block and replace the original element
+  const block = WebImporter.DOMUtils.createTable(tableRows, document);
+  element.replaceWith(block);
 }

@@ -1,104 +1,70 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Table header is exactly as specified
-  const headerRow = ['Cards (cards26)'];
-  // Find the cards container
-  const cardsSection = element.querySelector('[data-test-id="product-cards-section"]');
-  if (!cardsSection) return;
-  // Find all product card root elements
-  const cardNodes = Array.from(cardsSection.querySelectorAll('[data-test-id^="product-card-"]'));
-  const rows = cardNodes.map(card => {
-    // 1. IMAGE COLUMN (extract background-image)
-    let imageEl = '';
+  // Helper: extract the card's main image or visual
+  function getCardImage(card) {
     const bgDiv = card.querySelector('[data-test-id="background-image"]');
     if (bgDiv) {
-      // Try CSS background-image
-      let imgUrl = '';
-      const style = bgDiv.getAttribute('style');
-      if (style) {
-        const match = style.match(/background-image\s*:\s*url\(['"]?([^'")]+)['"]?\)/i);
-        if (match) {
-          imgUrl = match[1];
+      // Try background image via style attribute
+      const bgImage = bgDiv.style.backgroundImage;
+      if (bgImage && bgImage.startsWith('url(')) {
+        const m = bgImage.match(/url\(["']?(.*?)["']?\)/);
+        if (m && m[1]) {
+          const img = document.createElement('img');
+          img.src = m[1];
+          img.alt = '';
+          return img;
         }
       }
-      // fallback: if no CSS style, check for a data attribute (uncommon for this markup)
-      if (!imgUrl && bgDiv.getAttribute('data-background-image-url')) {
-        imgUrl = bgDiv.getAttribute('data-background-image-url');
-      }
-      if (imgUrl) {
-        imageEl = document.createElement('img');
-        imageEl.src = imgUrl;
-        imageEl.setAttribute('loading', 'lazy');
-      }
+      // If no background image in style, check if there's an <img> inside
+      const img = bgDiv.querySelector('img');
+      if (img) return img;
+      // Otherwise, fallback to using the div itself (may provide branding/color)
+      return bgDiv;
     }
-    // 2. TEXT COLUMN
-    // -- Title (two spans inside h3), overline and headline
-    // -- Description (Markdown span/div)
-    // -- CTAs (buttons/links)
-    const contentFragments = [];
-    const header = card.querySelector('[data-test-id="section-header"]');
-    if (header) {
-      // Overline text (optional, always first span)
-      const spans = header.querySelectorAll('span');
-      if (spans.length > 0 && spans[0].textContent.trim()) {
-        const overlineDiv = document.createElement('div');
-        overlineDiv.textContent = spans[0].textContent.trim();
-        overlineDiv.style.fontSize = 'smaller';
-        contentFragments.push(overlineDiv);
-      }
-      // Headline (second span, or first if only one)
-      const headlineIdx = spans.length > 1 ? 1 : 0;
-      if (spans.length > headlineIdx && spans[headlineIdx].textContent.trim()) {
-        const headlineStrong = document.createElement('strong');
-        headlineStrong.textContent = spans[headlineIdx].textContent.trim();
-        contentFragments.push(headlineStrong);
-      }
-    }
-    // Description (Markdown block, can be span or div)
-    const markdown = card.querySelector('[data-skyui-core="Markdown@11.8.0"]');
-    if (markdown) {
-      if (markdown.textContent.trim()) {
-        // To preserve markup (such as <br>), use innerHTML
-        const descDiv = document.createElement('div');
-        descDiv.innerHTML = markdown.innerHTML;
-        contentFragments.push(descDiv);
-      }
-    }
-    // CTAs
-    // Find the cta button group: [data-test-id^='card-X-cta'] and is a Flex
-    const ctaFlex = card.querySelector('[data-test-id^="card-"][data-skyui-core="Flex@11.8.0"]');
-    if (ctaFlex) {
-      const ctaLinks = Array.from(ctaFlex.querySelectorAll('a'));
-      if (ctaLinks.length > 0) {
-        const ctaWrapper = document.createElement('div');
-        ctaWrapper.style.marginTop = '1em';
-        ctaLinks.forEach(a => {
-          // Use the existing <a> reference, but strip unnecessary attributes/classes
-          a.removeAttribute('class');
-          a.removeAttribute('data-tracking-description');
-          a.removeAttribute('data-tracking-label');
-          a.removeAttribute('data-tracking-location');
-          a.removeAttribute('data-test-id');
-          a.removeAttribute('data-skyui-core');
-          // Remove button-specific style if present
-          a.style.marginRight = '0.5em';
-          // If it has only a span child, use just the span's text
-          if (a.childElementCount === 1 && a.firstElementChild.tagName === 'SPAN') {
-            a.textContent = a.firstElementChild.textContent;
-          }
-          ctaWrapper.appendChild(a);
+    return '';
+  }
+
+  // Helper: extract the card's content (header, description, ctas)
+  function getCardContent(card) {
+    const content = [];
+    // Get heading (h3 with spans inside)
+    const header = card.querySelector('h3[data-test-id="section-header"]');
+    if (header) content.push(header);
+    // Get description: it's either a span[data-skyui-core="Markdown@11.8.0"] or div[data-skyui-core="Markdown@11.8.0"] (sometimes for <br> markup)
+    let desc = card.querySelector('[data-skyui-core="Text@11.8.0"] span[data-skyui-core="Markdown@11.8.0"]');
+    if (!desc)
+      desc = card.querySelector('[data-skyui-core="Text@11.8.0"] div[data-skyui-core="Markdown@11.8.0"]');
+    if (desc) content.push(desc);
+    // Get CTAs (can be 0, 1, or 2); always <a> tags within [data-test-id*="cta"]
+    const ctaWrap = card.querySelector('[data-test-id*="cta"]');
+    if (ctaWrap) {
+      const ctas = Array.from(ctaWrap.querySelectorAll('a'));
+      if (ctas.length) {
+        const p = document.createElement('p');
+        ctas.forEach((cta, idx) => {
+          p.appendChild(cta);
+          if (idx < ctas.length - 1) p.appendChild(document.createTextNode(' '));
         });
-        contentFragments.push(ctaWrapper);
+        content.push(p);
       }
     }
-    // Build this card's row: always two columns
-    return [imageEl || '', contentFragments];
+    return content;
+  }
+
+  // Find the grid of cards
+  const grid = element.querySelector('[data-skyui-core="Grid@11.8.0"]');
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll('[data-test-id^="product-card-"]'));
+
+  // Build the table rows: first row is header, then 1-per-card rows
+  const rows = [['Cards (cards26)']];
+  cards.forEach(card => {
+    const img = getCardImage(card);
+    const content = getCardContent(card);
+    rows.push([img, content]);
   });
-  // Compose whole block table
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    ...rows
-  ], document);
-  // Replace the original element
+
+  // Replace the element with the block table
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

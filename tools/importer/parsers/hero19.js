@@ -1,36 +1,73 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Get the background image (row 2)
+  // Header row (must exactly match)
+  const headerRow = ['Hero (hero19)'];
+
+  // Row 2: Background Image (optional)
   let bgImg = null;
-  const bgImgWrap = element.querySelector('.Hero__MaskBox-sc-f6nat5-1');
-  if (bgImgWrap) {
-    const candidate = bgImgWrap.querySelector('img');
-    if (candidate) bgImg = candidate;
+  // Look for the visually prominent background image (in .Hero__MaskBox-sc-f6nat5-1)
+  const maskBox = element.querySelector('.Hero__MaskBox-sc-f6nat5-1');
+  if (maskBox) {
+    // Only take the first image inside the mask box as background
+    bgImg = maskBox.querySelector('img');
   }
-  // 2. Get the content (row 3)
-  // This is the big flex containing logo, heading, ctas, text, etc.
-  let contentFlex = null;
-  // Find the innermost flex containing all hero content (not just buttons)
-  // It contains the h1 (visually hidden), logo img, h2, ctas, and strong text.
-  const flexCandidates = element.querySelectorAll('.flex__Flex-sc-1r1ee79-0');
-  for (const flex of flexCandidates) {
-    if (
-      flex.querySelector('h1, h2, [data-test-id="show.hero.ctas"], strong')
-    ) {
-      contentFlex = flex;
-      break;
+
+  // Row 3: Content (all hero text, CTA, logo, subheading, description)
+  // Reference original elements instead of cloning
+  const contentElements = [];
+  // Main content container
+  const contentBox = element.querySelector('.bMVJpf');
+  if (contentBox) {
+    // 1. Logo/image (if present, not the background one)
+    // - this image is before the heading and has an empty alt
+    const logoImg = contentBox.querySelector('img');
+    if (logoImg) {
+      contentElements.push(logoImg);
+    }
+
+    // 2. Title (h1)
+    const h1 = contentBox.querySelector('h1');
+    if (h1) {
+      contentElements.push(h1);
+    }
+
+    // 3. Subheading (h2)
+    const h2 = contentBox.querySelector('h2');
+    if (h2) {
+      contentElements.push(h2);
+    }
+
+    // 4. Call-to-action(s)
+    // Buttons/links inside [data-test-id="show.hero.ctas"]
+    const ctas = contentBox.querySelector('[data-test-id="show.hero.ctas"]');
+    if (ctas) {
+      // Put all CTA links in order
+      const links = Array.from(ctas.querySelectorAll('a'));
+      links.forEach(link => contentElements.push(link));
+    }
+
+    // 5. Description (strong inside span)
+    const strongSpan = contentBox.querySelector('span > strong');
+    if (strongSpan) {
+      // Keep original strong element and wrap in a <p> for semantic meaning
+      // Reference the parent span, as it may contain more styling
+      const descSpan = strongSpan.parentElement;
+      if (descSpan) {
+        contentElements.push(descSpan);
+      } else {
+        contentElements.push(strongSpan);
+      }
     }
   }
-  // Fallback: get first big flex
-  if (!contentFlex && flexCandidates.length > 0) {
-    contentFlex = flexCandidates[0];
-  }
-  // Defensive: if background image/content missing, put empty string
-  const cells = [
-    ['Hero (hero19)'],
+
+  // Compose the table rows as per block requirements
+  const rows = [
+    headerRow,
     [bgImg ? bgImg : ''],
-    [contentFlex ? contentFlex : '']
+    [contentElements]
   ];
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Create and replace
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

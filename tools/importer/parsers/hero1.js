@@ -1,38 +1,34 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper: safely get immediate child by selector
-  function getImmediateChild(parent, selector) {
-    return Array.from(parent.children).find(el => el.matches(selector));
-  }
-
-  // 1. Header row: exact string as required
+  // Block header row, must match example
   const headerRow = ['Hero (hero1)'];
 
-  // 2. Background image row: not present in this HTML, so empty
-  const imageRow = [''];
-
-  // 3. Content row: should include logo and headline
-  // According to HTML, h1 contains all relevant content
-  // We reference the existing h1 element (do not clone)
+  // 1st content row: prominent image (background in example, logo in given HTML if no bg)
+  // Try to find the image in the structure:
+  // h1 > div > img
+  let imageEl = null;
   const h1 = element.querySelector('h1');
-  let contentRow;
   if (h1) {
-    contentRow = [h1];
-  } else {
-    // If h1 not found, leave cell empty
-    contentRow = [''];
+    // The logo image is nested inside the first div inside h1
+    const divInH1 = h1.querySelector('div');
+    if (divInH1) {
+      imageEl = divInH1.querySelector('img');
+    }
   }
+  const imageRow = [imageEl || ''];
 
-  // Compose the table
-  const cells = [
-    headerRow,
-    imageRow,
-    contentRow
-  ];
+  // 2nd content row: heading and subheading
+  // Title is in the span in h1
+  let headingFragment = [];
+  if (h1) {
+    // Keep the span as is (for styling/semantics), if present
+    const span = h1.querySelector('span');
+    if (span) headingFragment.push(span);
+  }
+  const contentRow = [headingFragment];
 
-  // Create the block table
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element
-  element.replaceWith(table);
+  // assemble the table
+  const rows = [headerRow, imageRow, contentRow];
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(block);
 }

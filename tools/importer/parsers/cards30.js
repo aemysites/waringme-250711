@@ -1,37 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Table header, must match exactly
-  const cells = [
-    ['Cards (cards30)']
-  ];
+  // Header row with exact name
+  const headerRow = ['Cards (cards30)'];
 
-  // Find the cards list (ul > li)
-  const ul = element.querySelector('ul');
-  if (!ul) return;
-  const lis = ul.querySelectorAll(':scope > li');
+  // Find all top-level card items
+  const cardItems = element.querySelectorAll('ul > li');
 
-  lis.forEach((li) => {
-    // Image: first <img> in li
+  const rows = Array.from(cardItems).map((li) => {
+    // Find the image for the first cell
     const img = li.querySelector('img');
-    // Text content: all <p> inside li (title and description)
-    const ps = li.querySelectorAll('p');
-    const textCell = [];
-    if (ps.length > 0) {
-      // Title: first <p>, wrapped in <strong>, but reference the existing <p> for description
-      const strong = document.createElement('strong');
-      strong.textContent = ps[0].textContent;
-      textCell.push(strong);
-      if (ps.length > 1) {
-        textCell.push(document.createElement('br'));
-        textCell.push(ps[1]);
-      }
-    }
-    cells.push([
-      img,
-      textCell
-    ]);
+    // Find the text box which contains the title and description
+    const textBox = li.querySelector('.box__Box-sc-1i8zs0c-0');
+    // Defensive: Provide fallback if not found
+    return [img || '', textBox || ''];
   });
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  const table = WebImporter.DOMUtils.createTable([
+    headerRow,
+    ...rows
+  ], document);
+
   element.replaceWith(table);
 }

@@ -1,25 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row: exactly one cell
-  const headerRow = ['Columns (columns23)'];
-
-  // Find the <ul> containing the columns
+  // Step 1: Extract the columns from the <ul> if present
   const ul = element.querySelector('ul');
-  let columns = [];
+  let columnCells = [];
   if (ul) {
-    const lis = Array.from(ul.children);
-    columns = lis.map(li => {
-      // Try to get the grid div in each li
-      const gridDiv = li.querySelector('[data-skyui-core^="Grid@"], .grid__Grid-sc-ysk8de-0');
-      return gridDiv || li;
+    const lis = ul.querySelectorAll(':scope > li');
+    columnCells = Array.from(lis).map(li => {
+      const grid = li.querySelector('[data-skyui-core^="Grid"]');
+      if (grid) {
+        const img = grid.querySelector('img');
+        const p = grid.querySelector('p');
+        let cellContent = [];
+        if (img) cellContent.push(img);
+        if (p) cellContent.push(p);
+        return cellContent.length === 1 ? cellContent[0] : cellContent;
+      }
+      return li;
     });
   }
+  if (columnCells.length === 0) return;
 
-  // Only create table if we have columns
-  if (columns.length > 0) {
-    // Structure: first row = headerRow (single cell), second row = columns (one per cell)
-    const tableArr = [headerRow, columns];
-    const table = WebImporter.DOMUtils.createTable(tableArr, document);
-    element.replaceWith(table);
-  }
+  // Create header row with single cell (so header is not spread across columns)
+  const headerRow = ['Columns (columns23)'];
+
+  // Compose table rows as required: header (1 cell), then columns as N cells
+  const rows = [headerRow, columnCells];
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(block);
 }

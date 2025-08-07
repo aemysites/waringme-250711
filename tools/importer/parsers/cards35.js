@@ -1,37 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // 1. Header row
+  // Create header row matching the specification
   const headerRow = ['Cards (cards35)'];
   const cells = [headerRow];
 
-  // 2. Find all card list items
-  const list = element.querySelector('ul');
-  if (list) {
-    const items = list.querySelectorAll(':scope > li');
-    items.forEach((li) => {
-      // Each li > div.card__Card-sc-19l2935-0
-      const cardDiv = li.querySelector(':scope > div');
-      if (!cardDiv) return;
+  // Find the <ul> that contains the cards
+  const ul = element.querySelector('ul');
+  if (!ul) return;
+  const lis = ul.querySelectorAll(':scope > li');
 
-      // Find the image (first img)
-      const img = cardDiv.querySelector('img') || '';
+  lis.forEach(li => {
+    // Find the image element (should exist)
+    const img = li.querySelector('img');
+    // Find the text element (should exist)
+    const span = li.querySelector('span');
+    let textCell = null;
+    if (span) {
+      // Create a <strong> element for the title, referencing the existing text
+      const strong = document.createElement('strong');
+      strong.textContent = span.textContent;
+      textCell = strong;
+    } else {
+      // Fallback if no span exists
+      textCell = '';
+    }
+    // Add the row for this card
+    cells.push([
+      img || '',
+      textCell
+    ]);
+  });
 
-      // Find the text (the span)
-      const titleSpan = cardDiv.querySelector('span');
-      let textCell;
-      if (titleSpan) {
-        // Use a <strong> for the title, as markdown example uses bold for title
-        const strong = document.createElement('strong');
-        strong.textContent = titleSpan.textContent;
-        textCell = strong;
-      } else {
-        textCell = '';
-      }
-      cells.push([img, textCell]);
-    });
-  }
-
-  // 3. Create the table and replace the element
+  // Create the block table and replace the original element
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }
