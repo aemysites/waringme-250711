@@ -1,41 +1,29 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row: Must match exactly (no variants)
+  // Header row that matches the example exactly
   const headerRow = ['Hero (hero6)'];
 
-  // --- 2nd row: Background image (optional) ---
-  // Find the first <img> inside .sc-jTQCzO (background image container)
-  let backgroundImg = null;
-  const backgroundImgContainer = element.querySelector('.sc-jTQCzO');
-  if (backgroundImgContainer) {
-    backgroundImg = backgroundImgContainer.querySelector('img');
-  }
-  const backgroundRow = [backgroundImg ? backgroundImg : ''];
+  // No background image in the HTML, so leave background image row empty
+  const bgRow = [''];
 
-  // --- 3rd row: Content (headings, subheadings, paragraph, cta, foreground image, etc.) ---
-  const contentCell = [];
-  // Heading and subheading (in <h2>)
-  const heading = element.querySelector('h2[data-test-id="section-header"]');
-  if (heading) contentCell.push(heading);
-  // Paragraph/description (after heading)
-  const description = element.querySelector('div[data-test-id="intersection animator"] .text__TextElement-sc-qf7y4e-0');
-  if (description) contentCell.push(description);
-  // Foreground image and its caption (if present)
-  const fgBox = element.querySelector('.box__Box-sc-1i8zs0c-0.egylQn');
-  if (fgBox) {
-    const fgFlex = fgBox.querySelector('.flex__Flex-sc-1r1ee79-0');
-    if (fgFlex) {
-      const fgImg = fgFlex.querySelector('img');
-      if (fgImg) contentCell.push(fgImg);
-      const fgCaption = fgFlex.querySelector('p');
-      if (fgCaption) contentCell.push(fgCaption);
-    }
-  }
+  // Content row: include all direct children that could be content (H1-H6, P, etc.)
+  const contentElements = Array.from(element.children).filter(child => {
+    // Accept any visible element with non-empty text, including headings and paragraphs
+    return (
+      /^H[1-6]$/.test(child.tagName) ||
+      child.tagName === 'P' ||
+      child.tagName === 'SPAN' ||
+      child.textContent.trim().length > 0
+    );
+  });
 
-  const contentRow = [contentCell];
+  // If there is content, use it; otherwise, use an empty string
+  const contentRow = [contentElements.length > 0 ? contentElements : ['']];
 
-  // Build and replace with table
-  const cells = [headerRow, backgroundRow, contentRow];
+  // Assemble the table
+  const cells = [headerRow, bgRow, contentRow];
   const table = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the new table
   element.replaceWith(table);
 }

@@ -1,27 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the grid layout container
-  const grid = element.querySelector('.grid-layout');
-  if (!grid) return;
-
-  // Get direct children (columns)
-  const columns = Array.from(grid.children);
-  if (columns.length < 2) return;
-
-  // Use the left column (text) and right column (image) directly as cells
-  const leftCol = columns[0];
-  const rightCol = columns[1];
-
-  // Build table structure
+  // Define the header row
   const headerRow = ['Columns (columns26)'];
-  const secondRow = [leftCol, rightCol];
 
-  // Create the table block
-  const table = WebImporter.DOMUtils.createTable([
-    headerRow,
-    secondRow,
-  ], document);
+  // Each li is a column
+  const columnLis = Array.from(element.querySelectorAll(':scope > li'));
 
-  // Replace the original element
-  element.replaceWith(table);
+  // For each column, gather the *existing* main content div
+  // This div contains both the image and the stars (and any text if present)
+  const cells = columnLis.map((li) => {
+    // find the main flex container in the li
+    const flexDiv = li.querySelector(':scope > div');
+    // Defensive: fallback to the li itself if the div is missing
+    return flexDiv || li;
+  });
+
+  // Compose the table structure: header, then one row with all columns
+  const tableData = [headerRow, cells];
+  const block = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element with the table block
+  element.replaceWith(block);
 }

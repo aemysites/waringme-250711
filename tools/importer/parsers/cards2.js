@@ -1,77 +1,85 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Cards (cards2) table construction
   const headerRow = ['Cards (cards2)'];
-  const cells = [headerRow];
+  const grid = element.querySelector('[data-test-id="product-cards-section"] [data-skyui-core="Grid@11.8.0"]');
+  if (!grid) return;
 
-  // Find the grid that contains card blocks
-  const grid = element.querySelector('.grid-layout');
-  if (!grid) {
-    // Fallback: if for some reason the grid is missing, do not replace
-    return;
-  }
+  // Find all cards
+  const cards = Array.from(grid.querySelectorAll('div[data-test-id^="product-card-"]'));
+  const rows = [headerRow];
 
-  // --- 1. Main Feature Card (first <a> in grid) ---
-  const allLinks = grid.querySelectorAll('a.utility-link-content-block');
-  // The HTML structure suggests the first <a> is the large feature card
-  if (allLinks[0]) {
-    const card = allLinks[0];
-    // Image (first <img> descendant)
-    const image = card.querySelector('img');
-    // Tag(s)
-    const tagGroup = card.querySelector('.tag-group');
-    // Heading and Description
-    const heading = card.querySelector('h3');
-    const desc = card.querySelector('p');
-    // Compose text cell, referencing existing elements in proper order
-    const textCell = [];
-    if (tagGroup) textCell.push(tagGroup);
-    if (heading) textCell.push(heading);
-    if (desc) textCell.push(desc);
-    cells.push([
-      image ? image : '',
-      textCell
+  cards.forEach(card => {
+    // --- IMAGE ---
+    let imageDiv = card.querySelector('[data-test-id="background-image"]');
+    let imageEl = '';
+    if (imageDiv) {
+      let bgImg = imageDiv.style.backgroundImage;
+      if (!bgImg) {
+        bgImg = window.getComputedStyle(imageDiv).backgroundImage;
+      }
+      if (bgImg && bgImg !== 'none') {
+        const urlMatch = bgImg.match(/url\(["']?(.*?)["']?\)/);
+        if (urlMatch && urlMatch[1]) {
+          imageEl = document.createElement('img');
+          imageEl.src = urlMatch[1];
+          imageEl.alt = '';
+        }
+      }
+    }
+
+    // --- CONTENT ---
+    const contentParts = [];
+    // Title block (h3)
+    const h3 = card.querySelector('h3[data-test-id="section-header"]');
+    if (h3) {
+      // Overline (optional)
+      const overline = h3.querySelector('span[data-test-id="overline-text"]');
+      if (overline && overline.textContent.trim()) {
+        // Use a <div> for overline, keep text
+        const overlineDiv = document.createElement('div');
+        overlineDiv.textContent = overline.textContent.trim();
+        overlineDiv.style.fontSize = 'smaller';
+        overlineDiv.style.opacity = '0.7';
+        contentParts.push(overlineDiv);
+      }
+      // Main title
+      const titleSpans = h3.querySelectorAll('span:not([data-test-id="overline-text"])');
+      if (titleSpans.length) {
+        const title = document.createElement('strong');
+        title.textContent = Array.from(titleSpans).map(s => s.textContent.trim()).join(' ');
+        contentParts.push(title);
+      }
+    }
+    // Description (span or div[data-skyui-core="Markdown@11.8.0"])
+    let descEl = card.querySelector('[data-skyui-core="Markdown@11.8.0"]');
+    if (descEl) {
+      if (descEl.tagName === 'DIV') {
+        // If the description is a div, keep its children (may have <br>s)
+        Array.from(descEl.childNodes).forEach(n => contentParts.push(n));
+      } else {
+        contentParts.push(descEl);
+      }
+    }
+    // CTAs (a[data-test-id^="card-"])
+    const ctas = Array.from(card.querySelectorAll('a[data-test-id^="card-"]'));
+    if (ctas.length) {
+      const ctaDiv = document.createElement('div');
+      ctas.forEach((cta, i) => {
+        ctaDiv.appendChild(cta);
+        if (i < ctas.length - 1) ctaDiv.appendChild(document.createTextNode(' '));
+      });
+      contentParts.push(ctaDiv);
+    }
+
+    // Fallback: if no content extracted, add whatever is left
+    if (contentParts.length === 0) contentParts.push(...Array.from(card.childNodes));
+
+    rows.push([
+      imageEl !== '' ? imageEl : '',
+      contentParts
     ]);
-  }
+  });
 
-  // --- 2. Next two cards with images (they are the next two links, both with images) ---
-  // Based on the HTML structure, these are allLinks[1] and allLinks[2]
-  for (let i = 1; i <= 2; i++) {
-    const card = allLinks[i];
-    if (!card) continue;
-    const image = card.querySelector('img');
-    const tagGroup = card.querySelector('.tag-group');
-    const heading = card.querySelector('h3');
-    const desc = card.querySelector('p');
-    const textCell = [];
-    if (tagGroup) textCell.push(tagGroup);
-    if (heading) textCell.push(heading);
-    if (desc) textCell.push(desc);
-    cells.push([
-      image ? image : '',
-      textCell
-    ]);
-  }
-
-  // --- 3. Cards without images (right column group) ---
-  // These are all inside the next flex-horizontal/flex-vertical block (dividers between)
-  const rightColumnGroup = grid.querySelector('div.flex-horizontal.flex-vertical.flex-gap-sm:last-of-type');
-  if (rightColumnGroup) {
-    const links = rightColumnGroup.querySelectorAll('a.utility-link-content-block');
-    links.forEach(card => {
-      const heading = card.querySelector('h3');
-      const desc = card.querySelector('p');
-      const textCell = [];
-      if (heading) textCell.push(heading);
-      if (desc) textCell.push(desc);
-      cells.push([
-        '',
-        textCell
-      ]);
-    });
-  }
-
-  // Create the cards block table
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }

@@ -1,46 +1,76 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Accordion block header as per example
+  // Header row must match example exactly
   const headerRow = ['Accordion (accordion33)'];
-  
-  // Select each accordion item: direct children with class 'accordion' or 'w-dropdown'
-  const accordionItems = Array.from(element.querySelectorAll(':scope > .accordion, :scope > .w-dropdown'));
-  
-  const rows = accordionItems.map(item => {
-    // Find the title in the toggle button
-    let titleEl = null;
-    const toggle = item.querySelector('.w-dropdown-toggle');
-    if (toggle) {
-      // Prefer '.paragraph-lg', fallback to first child div that isn't icon, else toggle itself
-      titleEl = toggle.querySelector('.paragraph-lg');
-      if (!titleEl) {
-        const divs = Array.from(toggle.children).filter(d => !d.classList.contains('dropdown-icon'));
-        titleEl = divs[0] || toggle;
+  const rows = [];
+
+  // Get all the top-level <li> elements (accordion items)
+  const items = element.querySelectorAll(':scope > li');
+
+  items.forEach((li) => {
+    // --- TITLE CELL ---
+    // We want the question text (the visible title of the accordion item)
+    let title;
+    const h3 = li.querySelector('h3');
+    if (h3) {
+      const button = h3.querySelector('button');
+      if (button) {
+        // The first span in the button is always the title text span
+        const spans = button.querySelectorAll('span');
+        if (spans.length > 0) {
+          title = spans[0]; // Reference the existing span element
+        } else {
+          // fallback, use button text
+          title = document.createElement('span');
+          title.textContent = button.textContent.trim();
+        }
       }
     }
-    // Find content for the accordion item
-    let contentEl = null;
-    const contentNav = item.querySelector('.accordion-content, .w-dropdown-list');
-    if (contentNav) {
-      // Prefer .rich-text/.w-richtext, else inner div, else contentNav
-      contentEl = contentNav.querySelector('.rich-text, .w-richtext');
-      if (!contentEl) {
-        // Find first child div or p
-        const firstDivOrP = contentNav.querySelector('div, p');
-        contentEl = firstDivOrP || contentNav;
+    if (!title) {
+      // fallback: use li text
+      title = document.createElement('span');
+      title.textContent = li.textContent.trim();
+    }
+
+    // --- CONTENT CELL ---
+    // We want the content that would be revealed in the accordion
+    let contentCell = null;
+    // The content area is in a div[role=region] with a div with data-skyui-core Markdown@... inside
+    const contentRegion = li.querySelector('div[role="region"]');
+    if (contentRegion) {
+      // Find the deepest div[data-skyui-core="Markdown@11.8.0"] inside region
+      const markdownDiv = contentRegion.querySelector('div[data-skyui-core^="Markdown@"]');
+      if (markdownDiv) {
+        // Reference the outermost parent box that is a box-- this ensures we keep structure/formatting
+        let outerBox = markdownDiv;
+        let current = markdownDiv;
+        while (
+          current.parentElement &&
+          current.parentElement !== contentRegion &&
+          current.parentElement.hasAttribute('data-skyui-core') &&
+          current.parentElement.getAttribute('data-skyui-core').startsWith('Box@')
+        ) {
+          outerBox = current.parentElement;
+          current = current.parentElement;
+        }
+        contentCell = outerBox;
+      } else {
+        // fallback: if no markdown, use contentRegion content
+        contentCell = contentRegion;
       }
     }
-    // Defensive: If title or content is missing, fallback to empty div
-    if (!titleEl) titleEl = document.createElement('div');
-    if (!contentEl) contentEl = document.createElement('div');
-    return [titleEl, contentEl];
+    if (!contentCell) {
+      // fallback: just use an empty div
+      contentCell = document.createElement('div');
+    }
+    rows.push([title, contentCell]);
   });
 
-  // Create the block table
+  // Compose the block table
   const table = WebImporter.DOMUtils.createTable([
     headerRow,
     ...rows
   ], document);
-  
+
   element.replaceWith(table);
 }

@@ -1,22 +1,34 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row for the Hero (hero25) block
+  // Compose header row
   const headerRow = ['Hero (hero25)'];
 
-  // This input HTML is an empty container div (no child content) based on the provided code
-  // So we have no image, title, subtitle, paragraph, or CTA to extract
-  // Edge case: all rows (other than header) will be empty
+  // Background image row: not present in this HTML, so leave empty
+  const backgroundRow = [''];
 
-  const backgroundImageRow = ['']; // No background image present
-  const contentRow = [''];         // No text content present
+  // Content row: include all text and CTA from the inner flex container
+  // (the child <div> holding <span> and <a>)
+  let contentDiv = null;
+  const divs = element.querySelectorAll(':scope > div');
+  for (let div of divs) {
+    if (
+      div.querySelector('a,button,input[type="submit"],input[type="button"],span,p,h1,h2,h3,h4,h5,h6')
+    ) {
+      contentDiv = div;
+      break;
+    }
+  }
+  if (!contentDiv && divs.length > 0) {
+    contentDiv = divs[0];
+  }
 
-  // Compose the table for the Hero (hero25) block
-  const cells = [
+  // Create the table
+  const rows = [
     headerRow,
-    backgroundImageRow,
-    contentRow,
+    backgroundRow,
+    [contentDiv ? contentDiv : ''],
   ];
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(block);
 }
