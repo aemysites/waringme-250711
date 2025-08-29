@@ -1,0 +1,112 @@
+{
+  "originUrl": "https://www.sky.com",
+  "aborted": false,
+  "urls": [
+    {
+      "url": "https://www.sky.com/",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "762d978a202d7be999401af5ad2d894ee70fdbc1"
+    },
+    {
+      "url": "https://www.sky.com/#footer",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "17fa46e7378c0b63afb5787e770301b722c6b3cc"
+    },
+    {
+      "url": "https://www.sky.com/#nav",
+      "source": "MANUAL",
+      "targetPath": "/",
+      "id": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d"
+    },
+    {
+      "url": "https://www.sky.com/boxoffice",
+      "source": "MANUAL",
+      "targetPath": "/boxoffice",
+      "id": "6cc8f2006ff4f1491562b62f596ec4acf5904042"
+    },
+    {
+      "url": "https://www.sky.com/boxoffice/tnt-sports",
+      "source": "MANUAL",
+      "targetPath": "/boxoffice/tnt-sports",
+      "id": "0405cbba7e2b1a7622eeb51dc0c4ddddec5a8993"
+    },
+    {
+      "url": "https://www.sky.com/broadband",
+      "source": "MANUAL",
+      "targetPath": "/broadband",
+      "id": "50f739f78ae978ebf4c436ec4ee7f9c0839b41e1"
+    },
+    {
+      "url": "https://www.sky.com/broadband/buy/stream/error",
+      "source": "MANUAL",
+      "targetPath": "/broadband/buy/stream/error",
+      "id": "7bfd188cf10989ff3d84d150f9231d3fadc4ccad"
+    },
+    {
+      "url": "https://www.sky.com/broadband/full-fibre-broadband",
+      "source": "MANUAL",
+      "targetPath": "/broadband/full-fibre-broadband",
+      "id": "e25f708aa58b99e2d68e48c1db877f7ce2194a12"
+    },
+    {
+      "url": "https://www.sky.com/broadband/gaming",
+      "source": "MANUAL",
+      "targetPath": "/broadband/gaming",
+      "id": "dad807bff2eb5f4a67305696e6c021cb71d0976d"
+    },
+    {
+      "url": "https://www.sky.com/deals",
+      "source": "MANUAL",
+      "targetPath": "/deals",
+      "id": "fac472fb978b80638907e174bfac88c53fa59c76"
+    },
+    {
+      "url": "https://www.sky.com/glass",
+      "source": "MANUAL",
+      "targetPath": "/glass",
+      "id": "57e984e70862dcc7447b4b38fb400642bd81f110"
+    },
+    {
+      "url": "https://www.sky.com/glass/43-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/43-inch",
+      "id": "231ca7afc86b9b9762a4d1031a7ae089d408d1fa"
+    },
+    {
+      "url": "https://www.sky.com/glass/55-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/55-inch",
+      "id": "c83a3bea4e150e81568642bfc8f48db26516a319"
+    },
+    {
+      "url": "https://www.sky.com/glass/65-inch",
+      "source": "MANUAL",
+      "targetPath": "/glass/65-inch",
+      "id": "23c5dc1b444c40260f591ff0966b5214d8724c46"
+    },
+    {
+      "url": "https://www.sky.com/glass/air",
+      "source": "MANUAL",
+      "targetPath": "/glass/air",
+      "id": "ed08882b9e66cdda2583fd3f6aef1818de0f2655"
+    },
+    {
+      "url": "https://www.sky.com/glass/gen-2",
+      "source": "MANUAL",
+      "targetPath": "/glass/gen-2",
+      "id": "8d11902769411576556f7f0e93fccf9c7388fbe9"
+    }
+  ],
+  "lastCrawled": null,
+  "crawlOptions": {
+    "limit": 100,
+    "strategy": "manual",
+    "strategiesAttempted": [
+      "MANUAL"
+    ]
+  },
+  "extractionErrors": [],
+  "errorCountMessage": "none"
+}
