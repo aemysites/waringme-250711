@@ -1,0 +1,134 @@
+{
+  "templates": [
+    {
+      "name": "Pricing Page",
+      "cluster": 1,
+      "pages": [
+        {
+          "url": "https://www.sky.com/glass",
+          "uuid": "57e984e70862dcc7447b4b38fb400642bd81f110"
+        },
+        {
+          "url": "https://www.sky.com/broadband",
+          "uuid": "50f739f78ae978ebf4c436ec4ee7f9c0839b41e1"
+        }
+      ]
+    },
+    {
+      "name": "\"Directory Listing Page\"",
+      "cluster": 2,
+      "pages": [
+        {
+          "url": "https://www.sky.com/glass/gen-2",
+          "uuid": "8d11902769411576556f7f0e93fccf9c7388fbe9"
+        },
+        {
+          "url": "https://www.sky.com/glass/air",
+          "uuid": "ed08882b9e66cdda2583fd3f6aef1818de0f2655"
+        }
+      ]
+    },
+    {
+      "name": "'Media Showcase Page'",
+      "cluster": 3,
+      "pages": [
+        {
+          "url": "https://www.sky.com/#nav",
+          "uuid": "117b5bd1bd0c319535e0305c0ce8efebd91fd53d"
+        },
+        {
+          "url": "https://www.sky.com/#footer",
+          "uuid": "17fa46e7378c0b63afb5787e770301b722c6b3cc"
+        }
+      ]
+    },
+    {
+      "name": "'Product Listing Page'",
+      "cluster": 4,
+      "pages": [
+        {
+          "url": "https://www.sky.com/glass/43-inch",
+          "uuid": "231ca7afc86b9b9762a4d1031a7ae089d408d1fa"
+        },
+        {
+          "url": "https://www.sky.com/glass/65-inch",
+          "uuid": "23c5dc1b444c40260f591ff0966b5214d8724c46"
+        },
+        {
+          "url": "https://www.sky.com/glass/55-inch",
+          "uuid": "c83a3bea4e150e81568642bfc8f48db26516a319"
+        }
+      ]
+    },
+    {
+      "name": "\"Portfolio Showcase\"",
+      "cluster": 5,
+      "pages": [
+        {
+          "url": "https://www.sky.com/deals",
+          "uuid": "fac472fb978b80638907e174bfac88c53fa59c76"
+        }
+      ]
+    },
+    {
+      "name": "Product Showcase Page",
+      "cluster": 6,
+      "pages": [
+        {
+          "url": "https://www.sky.com/broadband/buy/stream/error",
+          "uuid": "7bfd188cf10989ff3d84d150f9231d3fadc4ccad"
+        }
+      ]
+    },
+    {
+      "name": "'Dashboard Template'",
+      "cluster": 7,
+      "pages": [
+        {
+          "url": "https://www.sky.com/broadband/gaming",
+          "uuid": "dad807bff2eb5f4a67305696e6c021cb71d0976d"
+        }
+      ]
+    },
+    {
+      "name": "\"Media Showcase\"",
+      "cluster": 8,
+      "pages": [
+        {
+          "url": "https://www.sky.com/",
+          "uuid": "762d978a202d7be999401af5ad2d894ee70fdbc1"
+        }
+      ]
+    },
+    {
+      "name": "Sports Hub",
+      "cluster": 9,
+      "pages": [
+        {
+          "url": "https://www.sky.com/boxoffice",
+          "uuid": "6cc8f2006ff4f1491562b62f596ec4acf5904042"
+        }
+      ]
+    },
+    {
+      "name": "Promotional Landing Page",
+      "cluster": 10,
+      "pages": [
+        {
+          "url": "https://www.sky.com/boxoffice/tnt-sports",
+          "uuid": "0405cbba7e2b1a7622eeb51dc0c4ddddec5a8993"
+        }
+      ]
+    },
+    {
+      "name": "'Portfolio Showcase'",
+      "cluster": 11,
+      "pages": [
+        {
+          "url": "https://www.sky.com/broadband/full-fibre-broadband",
+          "uuid": "e25f708aa58b99e2d68e48c1db877f7ce2194a12"
+        }
+      ]
+    }
+  ]
+}
