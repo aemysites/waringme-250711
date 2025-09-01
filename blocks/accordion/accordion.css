@@ -116,7 +116,6 @@
   display: none;
 }
 
-/* Chevron icon styles */
 .accordion.accordion36 .accordion-item-label::after {
   display: inline-block;
   width: 16px;
@@ -155,5 +154,116 @@
     max-width: 98vw;
     padding-left: 8px;
     padding-right: 8px;
+  }
+}
+
+
+.accordion.accordion37 summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  padding: 13px 24px;
+  box-sizing: border-box;
+  background: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  user-select: none;
+}
+
+.accordion.accordion37 summary p {
+  margin: 0;
+  color: #757575;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0;
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+}
+
+.accordion.accordion37 summary::after {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 16px;
+  height: 14px;
+  border: solid #bcbcbc;
+  border-width: 0 1.5px 1.5px 0;
+  margin-left: 0;
+  transform: translateY(1px) rotate(45deg);
+}
+
+.accordion.accordion37 details[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.accordion.accordion37 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #fff;
+  padding: 32px 0;
+}
+
+.accordion.accordion37 .accordion {
+  width: 100%;
+  max-width: 700px;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.accordion.accordion37 details {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fff;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.accordion.accordion37 details + details {
+  margin-top: 24px;
+}
+
+.accordion.accordion37 summary::-webkit-details-marker,
+.accordion.accordion37 summary::marker {
+  display: none;
+}
+
+.accordion.accordion37 details[open] summary,
+.accordion.accordion37 summary:hover,
+.accordion.accordion37 summary:focus {
+  background: #fff;
+}
+
+.accordion.accordion37 details .accordion-item-body {
+  display: none;
+  padding: 0 24px 16px;
+  font-size: 14px;
+  color: #444;
+  background: #fff;
+}
+
+.accordion.accordion37 details[open] .accordion-item-body {
+  display: block;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+}
+
+@media (width <= 800px) {
+  .accordion.accordion37 .accordion {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  .accordion.accordion37 details {
+    max-width: 100%;
   }
 }
