@@ -25,3 +25,112 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+
+.cards.cards9 {
+  width: 100vw;
+  max-width: 100%;
+  padding: 0;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards.cards9 ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 48px;
+  margin: 0 auto;
+  max-width: 1120px;
+  width: 100%;
+  padding: 64px 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.cards.cards9 ul > li {
+  flex: 0 1 480px;
+  max-width: 480px;
+  min-width: 340px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f5f5f7;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(30,34,90,0.10);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  margin: 0;
+}
+
+.cards.cards9 ul > li:hover {
+  box-shadow: 0 16px 48px rgba(30,34,90,0.17);
+}
+
+@media (min-width: 900px) {
+  .cards.cards9 ul > li:nth-child(n+3) {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .cards.cards9 ul {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 32px;
+    max-width: 100%;
+    align-items: center;
+    padding: 32px 0;
+  }
+  .cards.cards9 ul > li {
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    flex: 1 1 100%;
+    border-radius: 16px;
+  }
+}
+
+.cards.cards9 .cards-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #e8eaf2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cards.cards9 .cards-card-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.cards.cards9 .cards-card-body {
+  padding: 28px 36px 36px 36px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.cards.cards9 .cards-card-body p:first-child {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #202238;
+  margin: 0 0 10px 0;
+}
+
+.cards.cards9 .cards-card-body p:not(:first-child) {
+  font-size: 1.06rem;
+  color: #525681;
+  margin: 0;
+}
