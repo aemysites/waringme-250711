@@ -1,8 +1,8 @@
+/* stylelint-disable no-descending-specificity */
 .accordion details {
   border: 1px solid #dadada;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .accordion details + details {
   margin-top: 24px;
 }
@@ -58,4 +58,102 @@
 .accordion details[open] .accordion-item-body {
   border-top: 1px solid #dadada;
   background-color: var(--background-color);
+}
+
+
+.accordion.accordion36 {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+}
+
+.accordion.accordion36 details {
+  border: none;
+  margin: 0;
+  border-bottom: 1px solid #e5e5e5;
+  background: transparent;
+}
+
+.accordion.accordion36 details:last-child {
+  border-bottom: none;
+}
+
+.accordion.accordion36 .accordion-item-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 48px;
+  padding: 20px 0;
+  padding-right: 40px;
+  background: none;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  color: #444;
+  font-weight: 400;
+}
+
+.accordion.accordion36 .accordion-item-label p {
+  margin: 0;
+  color: #444;
+  font-size: 16px;
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  line-height: 1.44;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.accordion.accordion36 .accordion-item-label::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron icon styles */
+.accordion.accordion36 .accordion-item-label::after {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  border: solid #444;
+  border-width: 0 3px 3px 0;
+  background: none;
+  transform: translateY(-50%) rotate(45deg);
+  transition: transform 0.3s;
+  pointer-events: none;
+}
+
+.accordion.accordion36 details[open] > .accordion-item-label::after {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+.accordion.accordion36 .accordion-item-body {
+  padding: 0 0 20px;
+  background: none;
+}
+
+.accordion.accordion36 .accordion-item-body p {
+  margin: 0;
+  color: #444;
+  font-size: 15px;
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (width <= 700px) {
+  .accordion.accordion36 {
+    max-width: 98vw;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
