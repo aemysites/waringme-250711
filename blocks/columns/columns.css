@@ -31,3 +31,208 @@
     order: unset;
   }
 }
+
+
+.columns.columns22 {
+  background: #fff;
+  font-family: "Sky Text", "Sky Text Fallback", sans-serif;
+  font-size: 13px;
+  color: #333;
+  position: relative;
+  width: 100%;
+  min-height: 36px;
+  box-sizing: border-box;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+}
+
+/* Top-level layout: left+center and right */
+.columns.columns22 > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 0;
+  gap: 28px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.columns.columns22 > div > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Left block: logo/text */
+.columns.columns22 > div > div:first-child p {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 36px;
+}
+
+/* Optional: visually replace Sky home page text with logo if logo image is available
+.columns.columns22 > div > div:first-child a {
+  width: 48px;
+  height: 21px;
+  display: inline-block;
+  background: url('PATH_TO_SKY_LOGO_IMAGE') no-repeat center left;
+  background-size: contain;
+  text-indent: -9999px;
+  margin-right: 8px;
+}
+*/
+
+.columns.columns22 > div > div:first-child a {
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.columns.columns22 > div > div:last-child ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.columns.columns22 > div > div:last-child ul li {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.columns.columns22 > div > div:last-child ul li a {
+  color: #666;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+  white-space: nowrap;
+  line-height: 36px;
+}
+
+.columns.columns22 > div > div:last-child ul li a:hover {
+  color: #1196db;
+}
+
+/* Right block: Country selector */
+.columns.columns22 > div + div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  height: 36px;
+}
+
+.columns.columns22 > div + div > div:last-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.columns.columns22 > div + div > div:last-child p {
+  color: #666;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  line-height: 36px;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.columns.columns22 > div + div > div:last-child picture img {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 2px;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (width <= 899px) {
+  .columns.columns22 {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 10px;
+    min-height: unset;
+  }
+
+  .columns.columns22 > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .columns.columns22 > div > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .columns.columns22 > div > div:last-child ul {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .columns.columns22 > div + div {
+    justify-content: flex-start;
+    gap: 8px;
+    min-width: 0;
+    margin-top: 8px;
+  }
+}
+
+/* Bottom gradient line */
+.columns.columns22::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #ffd700 0%,
+    #f65f94 20%,
+    #7d2ae8 60%,
+    #1196db 100%
+  );
+  content: "";
+  border: none;
+  pointer-events: none;
+  z-index: 2;
+}
