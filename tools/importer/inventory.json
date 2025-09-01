@@ -1835,7 +1835,7 @@
       "name": "Carousel",
       "cluster": 64,
       "source": "Carousel",
-      "target": "Carousel (carousel64)",
+      "target": "Hero",
       "key": "carousel64",
       "instances": [
         {
