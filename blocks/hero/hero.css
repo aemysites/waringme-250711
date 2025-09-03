@@ -193,3 +193,155 @@
     text-align: center;
   }
 }
+
+/* Trading Banner Styles (hero2) */
+.hero.hero2 {
+  background: linear-gradient(135deg, #ff0000 0%, #ff8000 16.66%, #ffff00 33.33%, #00ff00 50%, #0080ff 66.66%, #8000ff 83.33%, #ff0080 100%);
+  color: #ffffff;
+  padding: 1.5px 0;
+  min-height: 1.25px;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.hero.hero2 .trading-banner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero.hero2 .ticker-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  animation: scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.hero.hero2 .ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.hero.hero2 .stock-symbol {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  font-family: 'Sky Text', Arial, sans-serif;
+}
+
+.hero.hero2 .stock-price {
+  font-weight: 500;
+  font-size: 14px;
+  color: #e0e0e0;
+  font-family: 'Sky Text', Arial, sans-serif;
+}
+
+.hero.hero2 .stock-change {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Sky Text', Arial, sans-serif;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.hero.hero2 .stock-change.positive {
+  color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.hero.hero2 .stock-change.negative {
+  color: #ff4444;
+  background-color: rgba(255, 68, 68, 0.1);
+}
+
+/* Button styling for hero2 trading banner */
+.hero.hero2 button,
+.hero.hero2 .button,
+.hero.hero2 a.button {
+  background: transparent !important;
+  color: #ffffff !important;
+  text-align: center;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-family: 'Sky Text', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  line-height: 1;
+  height: auto;
+}
+
+.hero.hero2 button:hover,
+.hero.hero2 .button:hover,
+.hero.hero2 a.button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+
+}
+
+/* Scrolling animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover */
+.hero.hero2:hover .ticker-container {
+  animation-play-state: paused;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .hero.hero2 {
+  }
+  
+  .hero.hero2 .ticker-container {
+    animation-duration: 20s;
+  }
+  
+  .hero.hero2 .ticker-item {
+    min-width: 150px;
+  
+    gap: 6px;
+  }
+  
+  .hero.hero2 .stock-symbol,
+  .hero.hero2 .stock-price,
+  .hero.hero2 .stock-change {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero.hero2 .ticker-container {
+    gap: 16px;
+    animation-duration: 15s;
+  }
+  
+  .hero.hero2 .ticker-item {
+    min-width: 120px;
+    padding: 0 8px;
+  }
+  
+  .hero.hero2 .stock-symbol,
+  .hero.hero2 .stock-price,
+  .hero.hero2 .stock-change {
+    font-size: 11px;
+  }
+}

@@ -1,36 +1,107 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Define the table header exactly
-  const headerRow = ['Hero (hero21)'];
+  // Define the table header for trading banner
+  const headerRow = ['Hero (hero2)'];
 
-  // Find the background image (decorative asset)
-  // Only one <img> in the block, use existing element reference
-  const img = element.querySelector('img');
-  const imageRow = [img ? img : ''];
+  // Create trading banner structure
+  const tradingBanner = document.createElement('div');
+  tradingBanner.className = 'trading-banner';
 
-  // Collect content elements for content row
-  const contentEls = [];
+  // Create ticker container
+  const tickerContainer = document.createElement('div');
+  tickerContainer.className = 'ticker-container';
 
-  // Heading (h1)
-  const heading = element.querySelector('h1');
-  if (heading) contentEls.push(heading);
+  // Look for existing ticker data or create sample data
+  const existingTickers = element.querySelectorAll('.ticker-item, .stock-item, [data-ticker]');
+  
+  if (existingTickers.length > 0) {
+    // Use existing ticker data
+    existingTickers.forEach(ticker => {
+      const tickerItem = document.createElement('div');
+      tickerItem.className = 'ticker-item';
+      
+      // Extract symbol, price, and change from existing elements
+      const symbol = ticker.querySelector('.symbol, .stock-symbol, [data-symbol]') || 
+                    ticker.querySelector('strong, b') || 
+                    ticker.querySelector('span:first-child');
+      
+      const price = ticker.querySelector('.price, .stock-price, [data-price]') || 
+                   ticker.querySelector('span:nth-child(2)');
+      
+      const change = ticker.querySelector('.change, .stock-change, [data-change]') || 
+                    ticker.querySelector('span:last-child');
 
-  // Subheading (div[data-test-id=error-subheading], contains span)
-  const subheading = element.querySelector('div[data-test-id="error-subheading"]');
-  if (subheading) contentEls.push(subheading);
+      if (symbol) {
+        const symbolEl = document.createElement('span');
+        symbolEl.className = 'stock-symbol';
+        symbolEl.textContent = symbol.textContent.trim();
+        tickerItem.appendChild(symbolEl);
+      }
 
-  // Call-to-action button (a[data-test-id=ineligible-button])
-  const cta = element.querySelector('a[data-test-id="ineligible-button"]');
-  if (cta) contentEls.push(cta);
+      if (price) {
+        const priceEl = document.createElement('span');
+        priceEl.className = 'stock-price';
+        priceEl.textContent = price.textContent.trim();
+        tickerItem.appendChild(priceEl);
+      }
 
-  // Content row: array of referenced elements, only if present
-  const contentRow = [contentEls.length > 0 ? contentEls : ''];
+      if (change) {
+        const changeEl = document.createElement('span');
+        changeEl.className = 'stock-change';
+        const changeText = change.textContent.trim();
+        changeEl.textContent = changeText;
+        
+        // Determine if positive or negative
+        if (changeText.includes('+') || changeText.includes('▲')) {
+          changeEl.classList.add('positive');
+        } else if (changeText.includes('-') || changeText.includes('▼')) {
+          changeEl.classList.add('negative');
+        }
+        
+        tickerItem.appendChild(changeEl);
+      }
 
-  // Table structure: header, image, content
+      tickerContainer.appendChild(tickerItem);
+    });
+  } else {
+    // Create sample trading data if none exists
+    const sampleData = [
+      { symbol: 'FTSE 100', price: '7,234.56', change: '+1.2%' },
+      { symbol: 'GBP/USD', price: '1.2745', change: '+0.3%' },
+      { symbol: 'Oil', price: '$78.45', change: '-0.8%' },
+      { symbol: 'Gold', price: '$1,987.32', change: '+0.5%' }
+    ];
+
+    sampleData.forEach(data => {
+      const tickerItem = document.createElement('div');
+      tickerItem.className = 'ticker-item';
+
+      const symbolEl = document.createElement('span');
+      symbolEl.className = 'stock-symbol';
+      symbolEl.textContent = data.symbol;
+      tickerItem.appendChild(symbolEl);
+
+      const priceEl = document.createElement('span');
+      priceEl.className = 'stock-price';
+      priceEl.textContent = data.price;
+      tickerItem.appendChild(priceEl);
+
+      const changeEl = document.createElement('span');
+      changeEl.className = 'stock-change';
+      changeEl.textContent = data.change;
+      changeEl.classList.add(data.change.startsWith('+') ? 'positive' : 'negative');
+      tickerItem.appendChild(changeEl);
+
+      tickerContainer.appendChild(tickerItem);
+    });
+  }
+
+  tradingBanner.appendChild(tickerContainer);
+
+  // Create table structure: header, trading banner content
   const cells = [
     headerRow,
-    imageRow,
-    contentRow
+    [tradingBanner]
   ];
 
   // Create table block
