@@ -194,6 +194,43 @@
   }
 }
 
+/* Remove spacing between hero2 and hero19 */
+.hero.hero2 + .hero.hero19 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.hero.hero19 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Remove spacing from hero-wrapper around hero19 */
+.hero.hero2 + .hero-wrapper,
+.hero.hero2 + .hero-wrapper .hero.hero19 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.hero-wrapper .hero.hero19 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Remove spacing from hero-container sections */
+.hero.hero2 + .hero-container,
+.hero.hero2 + .hero-container .hero.hero19,
+.hero.hero2 + .hero-container .hero-wrapper {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.hero-container .hero.hero19,
+.hero-container .hero-wrapper .hero.hero19 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 /* Trading Banner Styles (hero2) */
 .hero.hero2 {
   background: linear-gradient(135deg, #ff0000 0%, #ff8000 16.66%, #ffff00 33.33%, #00ff00 50%, #0080ff 66.66%, #8000ff 83.33%, #ff0080 100%);
