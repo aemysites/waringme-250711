@@ -1,9 +1,7 @@
 {
-  "project": "AEM XWalk Boilerplate",
-  "editUrlLabel": "AEM Editor",
-  "editUrlPattern": "{{contentSourceUrl}}{{pathname}}?cmd=open",
-
-       "plugins": [
+    "project": "franklin-asset-selector",
+    "host": "www.mymydomain.prod",
+    "plugins": [
         {
             "id": "asset-library",
             "title": "My Assets",
@@ -18,4 +16,5 @@
             "passConfig": true,
             "paletteRect": "top: 50px; bottom: 10px; right: 10px; left: auto; width:400px; height: calc(100vh - 60px)"
         }
+    ]
 }
