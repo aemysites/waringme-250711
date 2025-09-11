@@ -134,3 +134,77 @@
   color: #525681;
   margin: 0;
 }
+
+/* Sky.com-style button styles for cards */
+.cards .cards-card-body a.button:any-link,
+.cards .cards-card-body button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 0;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  min-width: 80px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+/* Primary blue button (Sky.com style) */
+.cards .cards-card-body a.button.primary:any-link,
+.cards .cards-card-body button.primary {
+  background-color: #0070d2;
+  color: white;
+  border-color: #0070d2;
+}
+
+.cards .cards-card-body a.button.primary:any-link:hover,
+.cards .cards-card-body button.primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: white;
+  text-decoration: none;
+}
+
+/* Secondary white button with blue text (Sky.com style) */
+.cards .cards-card-body a.button.secondary:any-link,
+.cards .cards-card-body button.secondary {
+  background-color: white;
+  color: #0070d2;
+  border-color: #0070d2;
+}
+
+.cards .cards-card-body a.button.secondary:any-link:hover,
+.cards .cards-card-body button.secondary:hover {
+  background-color: #f8f9fa;
+  color: #0056b3;
+  border-color: #0056b3;
+  text-decoration: none;
+}
+
+/* Ensure buttons are displayed side by side */
+.cards .cards-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cards .cards-card-body .button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards .cards-card-body .button-group a.button:any-link,
+.cards .cards-card-body .button-group button {
+  display: inline-block;
+  margin: 0;
+}
